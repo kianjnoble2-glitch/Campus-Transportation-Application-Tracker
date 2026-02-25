@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="Kats.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:Kats"
+    Title="Kats"
+    Shell.TabBarIsVisible="False"
+    Shell.NavBarIsVisible="False"
+    Shell.FlyoutBehavior="Disabled">
+
+    <!-- Define your gradient brush in the resources -->
+
+    <Shell.Resources>
+        <ResourceDictionary>
+            <LinearGradientBrush x:Key="PageBackgroundGradient" StartPoint="0,0" EndPoint="1,1">
+                <GradientStop Color="#fadfdf" Offset="0.0" />
+                <GradientStop Color="#FFFFFF" Offset="1.0" />
+            </LinearGradientBrush>
+            <Style TargetType="Shell">
+                <Setter Property="Shell.TabBarBackgroundColor" Value="#FFFFFF" />
+                <Setter Property="Shell.TabBarForegroundColor" Value="#333333" />
+                <Setter Property="Shell.TabBarTitleColor" Value="#000000" />
+                <Setter Property="Shell.TabBarUnselectedColor" Value="#888888" />
+                <Setter Property="Shell.HeightRequest" Value="50"/>
+            </Style>
+        </ResourceDictionary>
+    </Shell.Resources>
+
+    
+
+    <!-- Parent Main Page -->
+
+    <TabBar Route="ParentMainPage">
+        <!-- Chat Tab -->
+        <Tab Title="Chat" Icon="chat.png">
+            <ShellContent ContentTemplate="{DataTemplate local:ChatPage}" Route="ChatPage" />
+        </Tab>
+
+        <!-- Notification Tab -->
+        <Tab Title="Notification" Icon="notification.png">
+            <ShellContent ContentTemplate="{DataTemplate local:NotificationsPage}" Route="NotificationsPage" />
+        </Tab>
+
+        <!-- Home Tab (Centered) -->
+        <Tab Title="Home" Icon="bus.png">
+            <ShellContent ContentTemplate="{DataTemplate local:ParentMainPage}" Route="ParentMainPage" />
+        </Tab>
+
+        <!-- Profile Tab -->
+        <Tab Title="Profile" Icon="profile.png">
+            <ShellContent ContentTemplate="{DataTemplate local:ProfilePage}" Route="ProfilePage" />
+        </Tab>
+
+        <!-- Settings Tab -->
+        <Tab Title="Settings" Icon="settings.png">
+            <ShellContent ContentTemplate="{DataTemplate local:SettingsPage}" Route="SettingsPage" />
+        </Tab>
+    </TabBar>
+
+
+</Shell>

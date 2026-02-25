@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Kats.SplashPage"
+             Shell.FlyoutBehavior="Disabled"
+             Shell.NavBarIsVisible="False"
+             Shell.TabBarIsVisible="False"
+             >
+
+    <ContentPage.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+            <LinearGradientBrush.GradientStops>
+                <GradientStopCollection>
+                    <GradientStop Color="#fadfdf" Offset="0.0" />
+                    <GradientStop Color="#FFFFFF" Offset="1.0" />
+                </GradientStopCollection>
+            </LinearGradientBrush.GradientStops>
+        </LinearGradientBrush>
+    </ContentPage.Background>
+    
+    <Grid>
+        <Image Source="bus.png" 
+               HorizontalOptions="Center" 
+               VerticalOptions="Center" 
+               WidthRequest="200" 
+               HeightRequest="200"/>
+    </Grid>
+</ContentPage>

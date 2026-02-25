@@ -1,0 +1,545 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:syncfusion="clr-namespace:Syncfusion.Maui.DataGrid;assembly=Syncfusion.Maui.DataGrid"
+             xmlns:buttons="clr-namespace:Syncfusion.Maui.Buttons;assembly=Syncfusion.Maui.Buttons"
+             xmlns:pager="clr-namespace:Syncfusion.Maui.DataGrid.DataPager;assembly=Syncfusion.Maui.DataGrid"
+             xmlns:tabView="clr-namespace:Syncfusion.Maui.TabView;assembly=Syncfusion.Maui.TabView"
+             xmlns:radialmenu="clr-namespace:Syncfusion.Maui.RadialMenu;assembly=Syncfusion.Maui.RadialMenu"
+             xmlns:root="clr-namespace:AdminApp"
+             x:Class="AdminApp.MainPage"
+             BackgroundColor="#93c2ec">
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IsVisible="False"
+                            IsEnabled="False" />
+    </Shell.BackButtonBehavior>
+
+    <ContentPage.Resources>
+        <root:Base64ToImageConverter x:Key="ToImage" />
+    </ContentPage.Resources>
+
+    <Grid>
+        <BoxView BackgroundColor="#FFFFFF"
+                 Margin="100,40,100,100"
+                 CornerRadius="20"
+                 Opacity="0.3">
+        </BoxView>
+        <BoxView BackgroundColor="#FFFFFF"
+                 Margin="130,0,130,100"
+                 CornerRadius="20"
+                 Opacity="0.2">
+
+        </BoxView>
+        <Border BackgroundColor="#0e79d7"
+                Stroke="#0e79d7"
+                Margin="75,75,75,75"
+                StrokeShape="RoundRectangle 20,20,20,20">
+
+        </Border>
+        <Border BackgroundColor="#f7f8fd"
+                Stroke="#f7f8fd"
+                Margin="135,100,75,100"
+                StrokeShape="RoundRectangle 20,0,20,0">
+            <!--GRID ROWS AND COLUMNS DECLARED FOR MAIN ELEMENTS-->
+            <Grid ColumnDefinitions=".5*,.5*"
+                  RowDefinitions=".15*,.85*">
+                <!--TOP ROW BORDER FOR SEARCH BAR-->
+                <Border Grid.Column="0"
+                        Grid.Row="0"
+                        BackgroundColor="White"
+                        Stroke="Black"
+                        StrokeThickness=".1"
+                        StrokeShape="RoundRectangle 20,20,20,20"
+                        Margin="50,10,10,10"
+                        HeightRequest="50">
+                    <Grid ColumnDefinitions=".95*,.05*">
+                        <SearchBar x:Name="filterText"
+                                   Placeholder="Search here to filter: "
+                                   SearchButtonPressed="filterText_SearchButtonPressed"
+                                   TextChanged="filterText_TextChanged"
+                                   CancelButtonColor="Black"
+                                   PlaceholderColor="LightGray"
+                                   TextColor="Black" />
+                        <Border Grid.Column="1"
+                                Stroke="Transparent"
+                                StrokeThickness="1"
+                                StrokeShape="RoundRectangle 25,0,25,0">
+                            <!--<Image Source="search.png"
+                                   HeightRequest="25"
+                                   Aspect="AspectFit"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center" 
+                                   />-->
+                            <buttons:SfButton x:Name="SearchButton"
+                                              ImageSource="search.png"
+                                              Margin="-25"
+                                              ImageSize="25"
+                                              ShowIcon="True"
+                                              Background="White"
+                                              Clicked="filterText_SearchButtonPressedAlternate" />
+                        </Border>
+                    </Grid>
+                </Border>
+                <!--TOP ROW BORDER FOR ADMIN, PROFILE PICTURE AND NOTIFICATIONS. IT IS TRANSPARENT. IT IS FOR POSITIONING AND TO HOLD A GRID.-->
+                <Border Stroke="Transparent"
+                        Margin="0,-5,40,0"
+                        HorizontalOptions="End"
+                        WidthRequest="200"
+                        HeightRequest="75"
+                        Grid.Column="1">
+                    <Grid ColumnDefinitions="*,*,*"
+                          ColumnSpacing="25">
+                        <Border Stroke="Transparent"
+                                StrokeThickness="3"
+                                StrokeShape="RoundRectangle 80,80,80,80"
+                                HeightRequest="30"
+                                WidthRequest="30"
+                                HorizontalOptions="End"
+                                VerticalOptions="Center">
+                            <!--<Image Source="notification.png" />-->
+                        </Border>
+                        <Border Stroke="LightBlue"
+                                StrokeThickness="2"
+                                StrokeShape="RoundRectangle 80,80,80,80"
+                                HeightRequest="50"
+                                WidthRequest="50"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center"
+                                Grid.Column="1">
+                            <Image Source="defaultuserimage.png"
+                                   Aspect="AspectFit" />
+                        </Border>
+                        <Label Text="Admin"
+                               TextColor="Black"
+                               HorizontalOptions="Start"
+                               VerticalOptions="Center"
+                               Grid.Column="2" />
+                    </Grid>
+                </Border>
+                <!--FILTER STUFF-->
+                <Border Grid.Column="1"
+                        HorizontalOptions="Center"
+                        Margin="0,0,220,0"
+                        HeightRequest="50"
+                        Stroke="#0e79d7"
+                        StrokeShape="RoundRectangle 20">
+                    <Grid>
+                        <Picker x:Name="Conditions"
+                                TextColor="Black"
+                                WidthRequest="300">
+                            <Picker.Items>
+                                <x:String>Record Equals</x:String>
+                                <x:String>Record Does Not Equal</x:String>
+                                <x:String>Record Contains</x:String>
+                            </Picker.Items>
+                            <Picker.SelectedItem>
+                                <x:String>Record Equals</x:String>
+                            </Picker.SelectedItem>
+                        </Picker>
+                    </Grid>
+
+                </Border>
+                <!--TAB ITEMS FOR PARENTS AND CHILDREN-->
+                <tabView:SfTabView Grid.ColumnSpan="2"
+                                   Grid.Row="1"
+                                   Margin="0,0,0,10"
+                                   IndicatorPlacement="Top"
+                                   IndicatorBackground="#0e79d7">
+                    <tabView:SfTabView.Items>
+                        <tabView:SfTabItem Header="Parents and Children"
+                                           ImageSource="family.png"
+                                           ImagePosition="Left">
+                            <tabView:SfTabItem.Content>
+                                <Grid ColumnDefinitions=".5*,.5*"
+                                      RowDefinitions=".4617647058823529*,.05882352941176471*,.4705882352941176*">
+                                    <CollectionView x:Name="collectionView"
+                                                    HorizontalScrollBarVisibility="Never"
+                                                    SelectionMode="Single"
+                                                    SelectionChanged="collectionView_SelectionChanged"
+                                                    ItemSizingStrategy="MeasureAllItems"
+                                                    VerticalOptions="Start"
+                                                    Margin="30,0,0,0"
+                                                    Grid.ColumnSpan="2"
+                                                    Grid.Row="0">
+                                        <CollectionView.ItemsLayout>
+                                            <LinearItemsLayout Orientation="Horizontal"
+                                                               ItemSpacing="15" />
+                                        </CollectionView.ItemsLayout>
+                                        <CollectionView.ItemTemplate>
+                                            <DataTemplate>
+                                                <Border x:Name="borderCollectionView"
+                                                        BackgroundColor="White"
+                                                        MaximumHeightRequest="350"
+                                                        Padding="5"
+                                                        StrokeShape="RoundRectangle 25">
+                                                    <VisualStateManager.VisualStateGroups>
+                                                        <VisualStateGroup x:Name="CommonStates">
+                                                            <VisualState x:Name="Normal">
+                                                                <VisualState.Setters>
+                                                                    <Setter Property="Stroke"
+                                                                            Value="DarkGray" />
+                                                                </VisualState.Setters>
+                                                            </VisualState>
+                                                            <VisualState x:Name="Selected">
+                                                                <VisualState.Setters>
+                                                                    <Setter Property="Stroke"
+                                                                            Value="#0e79d7" />
+                                                                    <Setter Property="Background"
+                                                                            Value="#BBDEFB" />
+                                                                </VisualState.Setters>
+                                                            </VisualState>
+                                                        </VisualStateGroup>
+                                                    </VisualStateManager.VisualStateGroups>
+
+                                                    <VerticalStackLayout Spacing="5"
+                                                                         VerticalOptions="Center"
+                                                                         x:Name="layoutCollectionView">
+                                                        <Border StrokeShape="RoundRectangle 80,80,80,80"
+                                                                StrokeThickness=".6"
+                                                                HeightRequest="60"
+                                                                WidthRequest="60">
+                                                            <Image Source="{Binding Image, Converter={StaticResource ToImage}}"
+                                                                   Aspect="AspectFit"
+                                                                   x:Name="collectionViewImage" />
+                                                        </Border>
+                                                        <Label Text="{Binding Name}"
+                                                               x:Name="collectionViewItemName"
+                                                               TextColor="#0e79d7"
+                                                               FontSize="15"
+                                                               HorizontalOptions="Center" />
+                                                        <Label Text="{Binding Email}"
+                                                               TextColor="DarkGray"
+                                                               FontSize="12"
+                                                               HorizontalOptions="Center" />
+                                                        <buttons:SfButton x:Name="ProfileDetailsButton"
+                                                                          Text="Profile Details"
+                                                                          TextColor="#0e79d7"
+                                                                          ImageSource="Edit.png"
+                                                                          ImageAlignment="Right"
+                                                                          ShowIcon="True"
+                                                                          CornerRadius="20"
+                                                                          Margin="20,0,20,20"
+                                                                          Background="Transparent"
+                                                                          Stroke="#0e79d7"
+                                                                          StrokeThickness="4"
+                                                                          Clicked="ProfileDetailsButton_Clicked" />
+                                                    </VerticalStackLayout>
+                                                </Border>
+                                            </DataTemplate>
+                                        </CollectionView.ItemTemplate>
+                                    </CollectionView>
+
+                                    <!--DATA GRID PAGER FOR PARENTS-->
+                                    <pager:SfDataPager x:Name="dataPager"
+                                                       Grid.Column="1"
+                                                       Grid.Row="1"
+                                                       ButtonSize="20"
+                                                       PageSize="5"
+                                                       NumericButtonsGenerateMode="Auto"
+                                                       Margin="275,20,0,0"
+                                                       HorizontalOptions="Center"
+                                                       VerticalOptions="Start"
+                                                       Source="{Binding FamilyList}">
+                                        <pager:SfDataPager.DefaultStyle>
+                                            <pager:DataPagerStyle NumericButtonSelectionBackgroundColor="#0e79d7">
+                                            </pager:DataPagerStyle>
+                                        </pager:SfDataPager.DefaultStyle>
+                                    </pager:SfDataPager>
+                                    <buttons:SfButton Grid.Row="2"
+                                                      Grid.Column="1"
+                                                      ImageSource="refresh1.png"
+                                                      ShowIcon="True"
+                                                      ImageAlignment="Default"
+                                                      Background="Transparent"
+                                                      WidthRequest="50"
+                                                      HorizontalOptions="End"
+                                                      VerticalOptions="End"
+                                                      Margin="0,10,0,0"
+                                                      Clicked="RefreshButton_Clicked" />
+
+                                    <buttons:SfButton Grid.Row="2"
+                                                      Grid.Column="1"
+                                                      ImageSource="adduser.png"
+                                                      ShowIcon="True"
+                                                      ImageAlignment="Default"
+                                                      Background="Transparent"
+                                                      WidthRequest="50"
+                                                      HorizontalOptions="End"
+                                                      VerticalOptions="End"
+                                                      Margin="0,30,0,30"
+                                                      Clicked="OnAddUsersButtonClicked" />
+
+                                    <!--DATA GRID FOR CHILDREN-->
+                                    <Frame Grid.Row="2"
+                                           Grid.ColumnSpan="2"
+                                           BackgroundColor="Transparent"
+                                           BorderColor="Transparent"
+                                           Margin="30,0,35,-5">
+                                        <ScrollView>
+                                            <syncfusion:SfDataGrid ItemsSource="{Binding Source = {x:Reference dataPager}, Path=PagedSource }"
+                                                                   ColumnWidthMode="Fill"
+                                                                   SortingMode="Single"
+                                                                   HorizontalOptions="Center"
+                                                                   AllowResizingColumns="True"
+                                                                   x:Name="childrenDataGrid">
+
+                                                <syncfusion:SfDataGrid.DefaultStyle>
+                                                    <syncfusion:DataGridStyle RowTextColor="Black"
+                                                                              HeaderRowFontAttributes="Bold"
+                                                                              HeaderRowTextColor="#0e79d7"/>
+                                                </syncfusion:SfDataGrid.DefaultStyle>
+                                                <syncfusion:SfDataGrid.Columns>
+                                                    <syncfusion:DataGridTextColumn HeaderText="Email"
+                                                                                   MappingName="Email"
+                                                                                   MinimumWidth="250"/>
+                                                    <syncfusion:DataGridTextColumn HeaderText="Name"
+                                                                                   MappingName="Name" />
+                                                    <syncfusion:DataGridTextColumn HeaderText="School"
+                                                                                   MappingName="SchoolName" />
+                                                    <syncfusion:DataGridTextColumn HeaderText="Female"
+                                                                                   MappingName="IsFemale"
+                                                                                   AllowEditing="False"
+                                                                                   AllowFocus="False" />
+                                                    <syncfusion:DataGridTextColumn HeaderText="Male"
+                                                                                   MappingName="IsMale"
+                                                                                   AllowEditing="False"
+                                                                                   AllowFocus="False" />
+                                                    <syncfusion:DataGridTextColumn HeaderText="Grade"
+                                                                                   MappingName="Grade" />
+                                                    <syncfusion:DataGridTextColumn HeaderText="Bus Number"
+                                                                                   MappingName="BusNumber" />
+                                                </syncfusion:SfDataGrid.Columns>
+                                            </syncfusion:SfDataGrid>
+                                        </ScrollView>
+                                    </Frame>
+                                </Grid>
+                            </tabView:SfTabItem.Content>
+                        </tabView:SfTabItem>
+                        <!--TAB ITEMS FOR BUSES AND DRIVERS-->
+                        <tabView:SfTabItem Header="Buses and Drivers"
+                                           ImageSource="busdriver1.png"
+                                           ImagePosition="Right">
+                            <tabView:SfTabItem.Content>
+                                <Grid ColumnDefinitions=".5*,.5*"
+                                      RowDefinitions=".4617647058823529*,.05882352941176471*,.4705882352941176*">
+                                    <CollectionView x:Name="collectionViewBus"
+                                                    SelectionMode="Single"
+                                                    ItemSizingStrategy="MeasureAllItems"
+                                                    VerticalOptions="Start"
+                                                    Margin="30,0,0,0"
+                                                    Grid.ColumnSpan="2"
+                                                    Grid.Row="0">
+                                        <CollectionView.ItemsLayout>
+                                            <LinearItemsLayout Orientation="Horizontal"
+                                                               ItemSpacing="15" />
+                                        </CollectionView.ItemsLayout>
+                                        <CollectionView.ItemTemplate>
+                                            <DataTemplate>
+                                                <Border x:Name="borderCollectionView"
+                                                        BackgroundColor="White"
+                                                        MaximumHeightRequest="350"
+                                                        Padding="5"
+                                                        StrokeShape="RoundRectangle 25">
+                                                    <VisualStateManager.VisualStateGroups>
+                                                        <VisualStateGroup x:Name="CommonStates">
+                                                            <VisualState x:Name="Normal">
+                                                                <VisualState.Setters>
+                                                                    <Setter Property="Stroke"
+                                                                            Value="DarkGray" />
+                                                                </VisualState.Setters>
+                                                            </VisualState>
+                                                            <VisualState x:Name="Selected">
+                                                                <VisualState.Setters>
+                                                                    <Setter Property="Stroke"
+                                                                            Value="#0e79d7" />
+                                                                    <Setter Property="Background"
+                                                                            Value="#BBDEFB" />
+                                                                </VisualState.Setters>
+                                                            </VisualState>
+                                                        </VisualStateGroup>
+                                                    </VisualStateManager.VisualStateGroups>
+                                                    <VerticalStackLayout Spacing="5"
+                                                                         VerticalOptions="Center">
+                                                        <Border StrokeShape="RoundRectangle 80,80,80,80"
+                                                                HeightRequest="60"
+                                                                WidthRequest="60">
+                                                            <Image Source="schoolbus1.png"
+                                                                   Aspect="AspectFit" />
+                                                        </Border>
+                                                        <Label Text="{Binding BusNumber}"
+                                                               x:Name="collectionViewBusItemName"
+                                                               TextColor="#0e79d7"
+                                                               FontSize="15"
+                                                               HorizontalOptions="Center" />
+                                                        <Label Text="{Binding Key}"
+                                                               TextColor="DarkGray"
+                                                               FontSize="12"
+                                                               HorizontalOptions="Center" />
+                                                        <buttons:SfButton x:Name="DriverDetailsButton"
+                                                                          Text="Driver Details"
+                                                                          TextColor="#0e79d7"
+                                                                          ImageSource="Edit.png"
+                                                                          ImageAlignment="Right"
+                                                                          ShowIcon="True"
+                                                                          CornerRadius="20"
+                                                                          Margin="20,0,20,20"
+                                                                          Background="Transparent"
+                                                                          Stroke="#0e79d7"
+                                                                          StrokeThickness="4"
+                                                                          Clicked="DriverDetailsButton_Clicked"/>
+                                                    </VerticalStackLayout>
+                                                </Border>
+                                            </DataTemplate>
+                                        </CollectionView.ItemTemplate>
+                                    </CollectionView>
+
+
+                                    <!--DATA GRID PAGER FOR DRIVERS-->
+
+                                    <pager:SfDataPager x:Name="dataPagerDriver"
+                                                       Grid.Column="1"
+                                                       Grid.Row="1"
+                                                       ButtonSize="20"
+                                                       PageSize="5"
+                                                       NumericButtonsGenerateMode="Auto"
+                                                       Margin="275,20,0,0"
+                                                       HorizontalOptions="Center"
+                                                       VerticalOptions="Start"
+                                                       Source="{Binding DriverList}">
+                                        <pager:SfDataPager.DefaultStyle>
+                                            <pager:DataPagerStyle NumericButtonSelectionBackgroundColor="#0e79d7">
+                                            </pager:DataPagerStyle>
+                                        </pager:SfDataPager.DefaultStyle>
+                                    </pager:SfDataPager>
+                                    <buttons:SfButton Grid.Row="2"
+                                                      Grid.Column="1"
+                                                      ImageSource="refresh1.png"
+                                                      ShowIcon="True"
+                                                      ImageAlignment="Default"
+                                                      Background="Transparent"
+                                                      WidthRequest="50"
+                                                      HorizontalOptions="End"
+                                                      VerticalOptions="End"
+                                                      Margin="0,10,0,0"
+                                                      Clicked="RefreshButtonDriver_Clicked" />
+
+                                    <buttons:SfButton Grid.Row="2"
+                                                      Grid.Column="1"
+                                                      ImageSource="adduser.png"
+                                                      ShowIcon="True"
+                                                      ImageAlignment="Default"
+                                                      Background="Transparent"
+                                                      WidthRequest="50"
+                                                      HorizontalOptions="End"
+                                                      VerticalOptions="End"
+                                                      Margin="0,30,0,30"
+                                                      Clicked="OnAddUsersButtonClicked" />
+
+
+                                    <!--DATA GRID FOR DRIVERS-->
+
+                                    <Frame Grid.Row="2"
+                                           Grid.ColumnSpan="2"
+                                           BackgroundColor="Transparent"
+                                           BorderColor="Transparent"
+                                           Margin="30,0,35,-5">
+                                        <ScrollView>
+                                            <syncfusion:SfDataGrid ItemsSource="{Binding Source = {x:Reference dataPagerDriver}, Path=PagedSource }"
+                                                                   ColumnWidthMode="Fill"
+                                                                   SortingMode="Single"
+                                                                   HorizontalOptions="Center"
+                                                                   AutoGenerateColumnsMode="None"
+                                                                   x:Name="driverDataGrid">
+
+                                                <syncfusion:SfDataGrid.DefaultStyle>
+                                                    <syncfusion:DataGridStyle RowTextColor="Black"
+                                                                              HeaderRowFontAttributes="Bold"
+                                                                              HeaderRowTextColor="#0e79d7" />
+                                                </syncfusion:SfDataGrid.DefaultStyle>
+                                                <syncfusion:SfDataGrid.Columns>
+                                                    <syncfusion:DataGridTextColumn HeaderText="Email"
+                                                                                   MappingName="Email" />
+                                                    <syncfusion:DataGridTextColumn HeaderText="Name"
+                                                                                   MappingName="Name" />
+                                                    <syncfusion:DataGridTextColumn HeaderText="Phone Number"
+                                                                                   MappingName="PhoneNumber" />
+                                                    <syncfusion:DataGridTextColumn HeaderText="Female"
+                                                                                   MappingName="IsFemale"
+                                                                                   AllowEditing="False"
+                                                                                   AllowFocus="False" />
+                                                    <syncfusion:DataGridTextColumn HeaderText="Male"
+                                                                                   MappingName="IsMale"
+                                                                                   AllowEditing="False"
+                                                                                   AllowFocus="False" />
+                                                </syncfusion:SfDataGrid.Columns>
+                                            </syncfusion:SfDataGrid>
+                                        </ScrollView>
+                                    </Frame>
+                                </Grid>
+                            </tabView:SfTabItem.Content>
+                        </tabView:SfTabItem>
+                    </tabView:SfTabView.Items>
+                </tabView:SfTabView>
+            </Grid>
+        </Border>
+        <radialmenu:SfRadialMenu x:Name="RadialMenu"
+                                 IsDragEnabled="True"
+                                 CenterButtonText="iBus"
+                                 CenterButtonFontAttributes="Bold"
+                                 CenterButtonTextColor="#1565C0"
+                                 CenterButtonStroke="White"
+                                 CenterButtonStrokeThickness="3"
+                                 CenterButtonBackgroundColor="#93c2ec"
+                                 CenterButtonFontSize="15"
+                                 RimRadius="200"
+                                 RimColor="#1565C0"
+                                 SeparatorThickness="4"
+                                 Point="77,275">
+            <!--<radialmenu:SfRadialMenu.CenterButtonView>
+        <Grid>
+            <StackLayout>
+                <Image Source="bus2.png" />
+            </StackLayout>
+        </Grid>
+    </radialmenu:SfRadialMenu.CenterButtonView>-->
+            <radialmenu:SfRadialMenu.Items>
+                <radialmenu:SfRadialMenuItem Text=""
+                                             FontSize="12"
+                                             ItemHeight="40"
+                                             ItemWidth="40"
+                                             BackgroundColor="White"
+                                             Image="blueback.png"
+                                             ItemTapped="SfRadialMenuItem_BackItemTapped" />
+                <radialmenu:SfRadialMenuItem Text=""
+                                             FontSize="12"
+                                             ItemHeight="40"
+                                             ItemWidth="40"
+                                             BackgroundColor="White"
+                                             Image="bluenotificationoutline.png"
+                                             ItemTapped="SfRadialMenuItem_ItemTapped" />
+                <radialmenu:SfRadialMenuItem Text=""
+                                             FontSize="12"
+                                             ItemHeight="40"
+                                             ItemWidth="40"
+                                             Image="blueroute.png"
+                                             BackgroundColor="White"
+                                             ItemTapped="SfRadialMenuItem_RouteItemTapped"/>
+                <radialmenu:SfRadialMenuItem Text=""
+                                             FontSize="12"
+                                             ItemHeight="40"
+                                             ItemWidth="40"
+                                             Image="viewblue.png"
+                                             ItemTapped="SfRadialMenuItem_MainItemTapped"
+                                             BackgroundColor="White" />
+                <radialmenu:SfRadialMenuItem Text=""
+                                             FontSize="12"
+                                             ItemHeight="40"
+                                             ItemWidth="40"
+                                             Image="bluedashboard.png"
+                                             ItemTapped="SfRadialMenuItem_DashboardItemTapped"
+                                             BackgroundColor="White" />
+              
+            </radialmenu:SfRadialMenu.Items>
+        </radialmenu:SfRadialMenu>
+    </Grid>
+</ContentPage>

@@ -1,0 +1,172 @@
+﻿<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+xmlns:popup="clr-namespace:Syncfusion.Maui.Popup;assembly=Syncfusion.Maui.Popup"
+             xmlns:cards="clr-namespace:Syncfusion.Maui.Cards;assembly=Syncfusion.Maui.Cards"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:syncfusion="clr-namespace:Syncfusion.Maui.Core;assembly=Syncfusion.Maui.Core"
+             xmlns:buttons="clr-namespace:Syncfusion.Maui.Buttons;assembly=Syncfusion.Maui.Buttons"
+             x:Class="Kats.LoginPage"
+             Shell.FlyoutBehavior="Disabled"
+             Shell.NavBarIsVisible="False"
+             Shell.TabBarIsVisible="False"
+             >
+    <ContentPage.Background>
+        <LinearGradientBrush StartPoint="1,0" EndPoint="1.7,1">
+            <LinearGradientBrush.GradientStops>
+                <GradientStopCollection>
+                    <GradientStop Color="#fadfdf" Offset="0.0" />
+                    <GradientStop Color="#FFFFFF" Offset="1.0" />
+                </GradientStopCollection>
+            </LinearGradientBrush.GradientStops>
+        </LinearGradientBrush>
+    </ContentPage.Background>
+
+    <ContentPage.Resources>
+        <Style TargetType="Grid">
+            <Setter Property="HorizontalOptions" Value="Center"/>
+            <Setter Property="VerticalOptions" Value="Center"/>
+        </Style>
+    </ContentPage.Resources>
+
+    <Grid RowDefinitions="*, Auto, Auto, *" ColumnDefinitions="*">
+        <!-- Gradient background using multiple frames -->
+        
+
+        <!-- Logo at the center -->
+        <Image Source="bus.png" x:Name="RotatingIcon"
+               Grid.Row="1"
+               HorizontalOptions="Center"
+               VerticalOptions="Center"
+               WidthRequest="400"
+               HeightRequest="400"/>
+
+
+        <!-- Buttons for Parent and Driver -->
+        <Grid Grid.Row="2"
+      HorizontalOptions="Center"
+      VerticalOptions="Center"
+      
+      Grid.Column="0">
+            <BoxView Color="#d28b87"
+             CornerRadius="10"
+             WidthRequest="300"
+             HeightRequest="120"
+             VerticalOptions="Center"
+             HorizontalOptions="Center"/>
+
+            <StackLayout Orientation="Vertical"
+                 HorizontalOptions="Center"
+                 VerticalOptions="Center"
+                 Spacing="10">
+                <!-- Sign in text inside a circular border -->
+                <Frame WidthRequest="110"
+               HeightRequest="110"
+               CornerRadius="55"
+               BorderColor="#d28b87"
+               BackgroundColor="#d28b87"
+               Padding="0"
+               HorizontalOptions="Center">
+                    <Frame WidthRequest="100"
+                   HeightRequest="100"
+                   CornerRadius="50"
+                   BackgroundColor="#e1b1af"
+                   Padding="0"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center">
+                        <Label Text="SIGN IN"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center"
+                       TextColor="#1e4072"
+                       FontSize="18"
+                       FontAttributes="Bold"/>
+                    </Frame>
+                </Frame>
+
+                <Image  x:Name="ArrowImage" Source="arrow_down.png" 
+               WidthRequest="40"
+               HeightRequest="40"
+               HorizontalOptions="Center"
+               VerticalOptions="Center"/>
+
+                <!--Parent-->
+                <Grid>
+                    <Frame WidthRequest="140" 
+           HeightRequest="50" 
+           CornerRadius="9"
+               
+           BorderColor="#d28b87"
+           Padding="0"
+           HasShadow="False"
+           HorizontalOptions="Center">
+                        <buttons:SfButton WidthRequest="130"
+                          HeightRequest="40"
+                          BackgroundColor="Transparent"
+                          TextColor="#FFFFFF"
+                          CornerRadius="9"
+                          FontSize="18"
+                          FontAttributes="Bold"
+                          Clicked="OnParentButtonClicked">
+                            <buttons:SfButton.Background>
+                                <StaticResource Key="ButtonGradient" />
+                            </buttons:SfButton.Background>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Image Source="parent.png" 
+                       WidthRequest="30"
+                       HeightRequest="30"
+                       VerticalOptions="Center"
+                       HorizontalOptions="Center"/>
+                                <Label Text="PARENT"
+                       VerticalOptions="Center"
+                       HorizontalOptions="Center"
+                       TextColor="#FFFFFF"
+                       FontSize="18"
+                       FontAttributes="Bold"
+                       Grid.Column="1"/>
+                            </Grid>
+                        </buttons:SfButton>
+                    </Frame>
+                </Grid>
+
+                <!--Driver-->
+                <Grid>
+                    <buttons:SfButton WidthRequest="130"
+                              HeightRequest="40"
+                              BackgroundColor="Transparent"
+                              TextColor="#FFFFFF"
+                              CornerRadius="9"
+                              FontSize="18"
+                              FontAttributes="Bold"
+                              Clicked="OnDriverButtonClicked">
+                        <buttons:SfButton.Background>
+                            <StaticResource Key="ButtonGradient" />
+                        </buttons:SfButton.Background>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Image Source="driver.png" 
+                           WidthRequest="30"
+                           HeightRequest="30"
+                           VerticalOptions="Center"
+                           HorizontalOptions="Center"/>
+                            <Label Text="DRIVER"
+                           VerticalOptions="Center"
+                           HorizontalOptions="Center"
+                           TextColor="#FFFFFF"
+                           FontSize="18"
+                           FontAttributes="Bold"
+                           Grid.Column="1"/>
+                        </Grid>
+                    </buttons:SfButton>
+                </Grid>
+            </StackLayout>
+        </Grid>
+
+
+    </Grid>
+
+</ContentPage>

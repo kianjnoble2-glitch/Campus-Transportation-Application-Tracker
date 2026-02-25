@@ -1,0 +1,395 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:popup="clr-namespace:Syncfusion.Maui.Popup;assembly=Syncfusion.Maui.Popup"
+             xmlns:cards="clr-namespace:Syncfusion.Maui.Cards;assembly=Syncfusion.Maui.Cards"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:syncfusion="clr-namespace:Syncfusion.Maui.Core;assembly=Syncfusion.Maui.Core"
+             xmlns:buttons="clr-namespace:Syncfusion.Maui.Buttons;assembly=Syncfusion.Maui.Buttons"
+             x:Class="Kats.DriverProfilePage"
+             xmlns:root="clr-namespace:Kats"
+             Shell.FlyoutBehavior="Disabled"
+             Shell.NavBarIsVisible="False"
+             Shell.TabBarIsVisible="False">
+    <ContentPage.Background>
+        <LinearGradientBrush StartPoint="1,0"
+                             EndPoint="1.7,1">
+            <LinearGradientBrush.GradientStops>
+                <GradientStopCollection>
+                    <GradientStop Color="#fadfdf"
+                                  Offset="0.0" />
+                    <GradientStop Color="#FFFFFF"
+                                  Offset="1.0" />
+                </GradientStopCollection>
+            </LinearGradientBrush.GradientStops>
+        </LinearGradientBrush>
+    </ContentPage.Background>
+
+    <ContentPage.Resources>
+        <root:Base64ToImageConverter x:Key="ToImage" />
+    </ContentPage.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="340" />
+            <RowDefinition Height="450" />
+        </Grid.RowDefinitions>
+
+        <!-- First Grid Row: Children -->
+        <Grid Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Label Text="STUDENTS"
+                   x:Name="studentsLabel"
+                   Grid.Row="0"
+                   HorizontalOptions="CenterAndExpand"
+                   VerticalOptions="CenterAndExpand"
+                   FontAttributes="Bold"
+                   FontSize="Title"
+                   FontFamily="FAB"
+                   TextColor="#C68884" />
+
+            <CollectionView ItemsSource="{Binding ChildrenList}"
+                            Margin="10"
+                            Grid.Row="1">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Border StrokeShape="RoundRectangle 35 0 0 35"
+                                BackgroundColor="#C68884"
+                                Margin="10"
+                                HeightRequest="120">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Border Grid.Column="0"
+                                        StrokeShape="RoundRectangle 35 35 0 35"
+                                        BackgroundColor="AntiqueWhite"
+                                        StrokeThickness="5">
+                                    <Image Source="schoolbus1.jpg"
+                                           Aspect="AspectFit"
+                                           VerticalOptions="FillAndExpand"
+                                           HorizontalOptions="FillAndExpand" />
+                                </Border>
+                                <Grid Grid.Column="1"
+                                      Margin="10">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+                                    <!-- Bind each Label to the Children properties -->
+                                    <Label Grid.Row="0"
+                                           Text="{Binding Name}"
+                                           TextColor="AntiqueWhite"
+                                           FontAttributes="Bold" />
+                                    <Label Grid.Row="1"
+                                           Text="{Binding SchoolName}"
+                                           TextColor="AntiqueWhite"
+                                           FontAttributes="Bold" />
+                                    <BoxView Grid.Row="2"
+                                             HeightRequest="2"
+                                             BackgroundColor="AntiqueWhite"
+                                             HorizontalOptions="FillAndExpand" />
+                                    <Label Grid.Row="3"
+                                           Text="{Binding Grade}"
+                                           TextColor="AntiqueWhite"
+                                           FontAttributes="Bold" />
+                                    <Label Grid.Row="4"
+                                           Text="{Binding BusNumber}"
+                                           TextColor="AntiqueWhite"
+                                           FontAttributes="Bold" />
+                                </Grid>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+        </Grid>
+
+        <!-- Second Grid Row: Parents -->
+        <Grid Grid.Row="1">
+            <AbsoluteLayout HorizontalOptions="FillAndExpand"
+                            VerticalOptions="FillAndExpand">
+                <Border StrokeShape="RoundRectangle 25 25 0 0"
+                        Background="White"
+                        AbsoluteLayout.LayoutBounds="0,0,1,1"
+                        AbsoluteLayout.LayoutFlags="All">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="40" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+
+                            <Label Text="DRIVER"
+                                   Grid.Row="0"
+                                   HorizontalOptions="CenterAndExpand"
+                                   VerticalOptions="CenterAndExpand"
+                                   FontAttributes="Bold"
+                                   FontSize="Title"
+                                   FontFamily="FAR"
+                                   TextColor="#C68884" />
+
+                            <buttons:SfButton WidthRequest="130"
+                                              Grid.Column="1"
+                                              HeightRequest="30"
+                                              BackgroundColor="Transparent"
+                                              TextColor="#FFFFFF"
+                                              CornerRadius="9"
+                                              FontSize="18"
+                                              FontAttributes="Bold"
+                                              Margin="5">
+                                <buttons:SfButton.Background>
+                                    <StaticResource Key="ButtonGradient" />
+                                </buttons:SfButton.Background>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Image Source="user.png"
+                                           WidthRequest="30"
+                                           HeightRequest="30"
+                                           VerticalOptions="Center"
+                                           HorizontalOptions="Center" />
+                                    <Label Text="Update"
+                                           VerticalOptions="Center"
+                                           HorizontalOptions="Center"
+                                           TextColor="#FFFFFF"
+                                           FontSize="18"
+                                           FontAttributes="Bold"
+                                           Grid.Column="1" />
+                                </Grid>
+                            </buttons:SfButton>
+
+
+                        </Grid>
+
+
+
+                        <CollectionView ItemsSource="{Binding DriverList}"
+                                        Margin="10"
+                                        Grid.Row="1">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Border StrokeShape="RoundRectangle 0 0 0 35"
+                                            BackgroundColor="#C68884"
+                                            Margin="10">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+                                            <Border Grid.Column="0"
+                                                    StrokeShape="RoundRectangle 0 35 0 35"
+                                                    BackgroundColor="AntiqueWhite"
+                                                    StrokeThickness="5"
+                                                    MinimumHeightRequest="200">
+                                                <Image Source="{Binding Image, Converter={StaticResource ToImage}}"
+                                                       x:Name="driverImage"
+                                                       Aspect="AspectFit"
+                                                       VerticalOptions="FillAndExpand"
+                                                       HorizontalOptions="FillAndExpand" />
+                                            </Border>
+                                            <Grid Grid.Column="1"
+                                                  Margin="10">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="*" />
+                                                    <RowDefinition Height="*" />
+                                                    <RowDefinition Height="*" />
+                                                    <RowDefinition Height="*" />
+                                                    <RowDefinition Height="*" />
+                                                </Grid.RowDefinitions>
+                                                <!-- Bind each Label to the Parent properties -->
+                                                <Label Grid.Row="0"
+                                                       Text="{Binding Name}"
+                                                       TextColor="AntiqueWhite"
+                                                       FontAttributes="Bold" />
+                                                <Label Grid.Row="1"
+                                                       Text="Driver"
+                                                       TextColor="AntiqueWhite"
+                                                       FontAttributes="Bold" />
+                                                <BoxView Grid.Row="2"
+                                                         HeightRequest="2"
+                                                         BackgroundColor="AntiqueWhite"
+                                                         HorizontalOptions="FillAndExpand" />
+                                                <Label Grid.Row="3"
+                                                       Text="{Binding Email}"
+                                                       TextColor="AntiqueWhite"
+                                                       FontSize="12"
+                                                       FontAttributes="Bold" />
+                                                <Label Grid.Row="4"
+                                                       Text="{Binding BusNumber}"
+                                                       TextColor="AntiqueWhite"
+                                                       FontAttributes="Bold" />
+                                            </Grid>
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </Grid>
+
+
+                </Border>
+                <Border  StrokeShape="RoundRectangle 25 25 25 25"
+                         Background="#C68884"
+                         HeightRequest="70"
+                         WidthRequest="350"
+                         AbsoluteLayout.LayoutBounds="0,0.15,1,2"
+                         AbsoluteLayout.LayoutFlags="All"
+                         HorizontalOptions="FillAndExpand"
+                         VerticalOptions="FillAndExpand">
+                    <Grid AbsoluteLayout.LayoutBounds="0,0,1,1"
+                          AbsoluteLayout.LayoutFlags="PositionProportional"
+                          HorizontalOptions="Center"
+                          VerticalOptions="Center">
+                        <!-- Circular Border -->
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="70" />
+                            </Grid.RowDefinitions>
+
+                            <Grid Grid.Row="0"
+                                  ColumnDefinitions="Auto,Auto,*,Auto,Auto"
+                                  RowDefinitions="*,*"
+                                  RowSpacing="3"
+                                  ColumnSpacing="45"
+                                  HorizontalOptions="CenterAndExpand">
+
+
+                                <!-- Chat-->
+                                <Label Grid.Row="1"
+                                       FontSize="8"
+                                       HorizontalOptions="Center"
+                                       Text="Chat"
+                                       TextColor="White"></Label>
+
+                                <Label FontFamily="FAS"
+                                       FontSize="20"
+                                       HorizontalOptions="Center"
+                                       Text="&#xf075;"
+                                       VerticalOptions="End"
+                                       TextColor="White" />
+
+                                <!-- Notifications-->
+
+                                <Label Grid.Row="1"
+                                       Grid.Column="1"
+                                       FontSize="8"
+                                       HorizontalOptions="Center"
+                                       Text="Notifications"
+                                       FlowDirection="LeftToRight"
+                                       HorizontalTextAlignment="Center"
+                                       TextColor="White">
+                                </Label>
+
+
+                                <Label Grid.Column="1"
+                                       FontFamily="FAS"
+                                       FontSize="20"
+                                       VerticalOptions="End"
+                                       HorizontalOptions="Center"
+                                       Text="&#xf0f3;"
+                                       TextColor="White" />
+
+                                <!-- HOME-->
+
+
+                                <Label Grid.Row="1"
+                                       Grid.Column="2"
+                                       FontSize="10"
+                                       HorizontalOptions="Center"
+                                       Text="Home"
+                                       TextColor="White">
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="OnHomeTapped" />
+                                    </Label.GestureRecognizers>
+                                </Label>
+
+                                <Label FontFamily="FAS"
+                                       Grid.Column="2"
+                                       FontSize="20"
+                                       VerticalOptions="End"
+                                       HorizontalOptions="Center"
+                                       Text="&#xf015;"
+                                       TextColor="White">
+
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="OnHomeTapped" />
+                                    </Label.GestureRecognizers>
+                                </Label>
+
+                                <!--Profile-->
+                                <Label Grid.Row="1"
+                                       Grid.Column="3"
+                                       FontSize="8"
+                                       HorizontalOptions="Center"
+                                       Text="Profile"
+                                       TextColor="White">
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="OnProfileTapped" />
+                                    </Label.GestureRecognizers>
+                                </Label>
+
+
+                                <Label FontFamily="FAS"
+                                       Grid.Column="3"
+                                       FontSize="20"
+                                       VerticalOptions="End"
+                                       HorizontalOptions="Center"
+                                       Text="&#xf007;"
+                                       TextColor="Pink">
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="OnProfileTapped" />
+                                    </Label.GestureRecognizers>
+                                </Label>
+
+                                <!-- Settings -->
+                                <Label Grid.Row="1"
+                                       Grid.Column="4"
+                                       FontSize="8"
+                                       HorizontalOptions="Center"
+                                       Text="Settings"
+                                       TextColor="White">
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="OnSettingsTapped" />
+                                    </Label.GestureRecognizers>
+
+                                </Label>
+
+                                <Label FontFamily="FAS"
+                                       Grid.Column="4"
+                                       FontSize="20"
+                                       VerticalOptions="End"
+                                       HorizontalOptions="Center"
+                                       Text="&#xf085;"
+                                       TextColor="White">
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="OnSettingsTapped" />
+                                    </Label.GestureRecognizers>
+                                </Label>
+
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </Border>
+
+
+            </AbsoluteLayout>
+        </Grid>
+    </Grid>
+</ContentPage>

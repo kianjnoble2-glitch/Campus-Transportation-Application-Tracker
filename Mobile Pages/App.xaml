@@ -1,0 +1,31 @@
+﻿<?xml version = "1.0" encoding = "UTF-8" ?>
+    
+<Application xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Kats"
+             x:Class="Kats.App">
+    <Application.Resources>
+        <ResourceDictionary>
+            <Style TargetType="NavigationPage">
+                <Setter Property="BarBackgroundColor" Value="#fadfdf" />
+                <Setter Property="BarTextColor" Value="White" />
+            </Style>
+            
+            <LinearGradientBrush x:Key="ButtonGradient" StartPoint="0,0" EndPoint="1,1">
+                <GradientStop Color="#d28b87" Offset="0.0" />
+                <GradientStop Color="#e1b1af" Offset="1.0" />
+            </LinearGradientBrush>
+
+            <Style TargetType="Shell">
+                <Setter Property="Shell.TabBarBackgroundColor" Value="#f7f7f7" />
+                <Setter Property="Shell.TabBarForegroundColor" Value="#444444" />
+                <Setter Property="Shell.TabBarTitleColor" Value="#333333" />
+                <Setter Property="Shell.TabBarUnselectedColor" Value="#aaaaaa" />
+                <Setter Property="Shell.HeightRequest" Value="50"/>
+            </Style>
+        </ResourceDictionary>
+    </Application.Resources>
+    
+   
+
+</Application>

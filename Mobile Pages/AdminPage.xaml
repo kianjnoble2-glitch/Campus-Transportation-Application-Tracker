@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+xmlns:buttons="clr-namespace:Syncfusion.Maui.Buttons;assembly=Syncfusion.Maui.Buttons"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Kats.AdminPage"
+             Title="AdminPage">
+
+    <VerticalStackLayout Spacing="20" Padding="5">
+
+        <!-- Picker to choose user role -->
+        <Picker x:Name="UserRolesPicker" 
+                Title="Select User Role"
+                ItemsSource="{Binding Users}"
+                ItemDisplayBinding="{Binding UserRole}"
+                SelectedIndexChanged="OnUserRoleChanged" />
+
+        <!-- Parent Entries -->
+        <StackLayout x:Name="ParentStackLayout" IsVisible="False">
+            <!-- Name Entry -->
+            <Entry Placeholder="Name" 
+                   Text="{Binding Name}"
+                   x:Name="ParentName"/>
+
+            <Label Text="Role" FontSize="Medium" />
+
+            <buttons:SfRadioGroup>
+                <buttons:SfRadioButton x:Name="Father" Text="Father" IsChecked="{Binding IsFather}" />
+                <buttons:SfRadioButton x:Name="Mother" Text="Mother" IsChecked="{Binding IsMother}" />
+                <buttons:SfRadioButton x:Name="Gurdian" Text="Gurdian" IsChecked="{Binding IsGurdian}" />
+            </buttons:SfRadioGroup>
+
+            <!-- Email Entry -->
+            <Entry Placeholder="Email" 
+                   Text="{Binding Email}" 
+                   Keyboard="Email"
+                   x:Name="ParentEmail"
+                   TextChanged="OnEmailTextChanged"/>
+
+
+            <Entry Placeholder="Password**"
+                   Text="{Binding Password}"
+                   IsPassword="True"
+                   x:Name="ParentPassword"/>
+
+            <!-- Phone Number Entry -->
+            <Entry Placeholder="Phone Number" 
+                   Text="{Binding PhoneNumber}" 
+                   Keyboard="Telephone"
+                   x:Name="ParentPhone"
+                   TextChanged="OnPhoneNumberTextChanged"/>
+
+
+            <Label Text="Select Route ( Based on Area )" />
+            <Picker x:Name="RoutePicker"
+                    Title="Select Route"
+                    SelectedIndexChanged="OnRouteChanged">
+            </Picker>
+
+
+            <!-- Number of Children Picker -->
+            <Label Text="How many children?" />
+            <Picker x:Name="ChildrenCountPicker">
+                <Picker.ItemsSource>
+                    <x:Array Type="{x:Type x:Int32}">
+                        <x:Int32>0</x:Int32>
+                        <x:Int32>1</x:Int32>
+                        <x:Int32>2</x:Int32>
+                        <x:Int32>3</x:Int32>
+                        <x:Int32>4</x:Int32>
+                    </x:Array>
+                </Picker.ItemsSource>
+            </Picker>
+
+            <!-- StackLayout for dynamic children entries -->
+            <ScrollView x:Name="ChildrenStackLayout" />
+            
+            
+            
+        </StackLayout>
+
+
+        <Button Text="Add Parent"
+                Clicked="OnAddParent"
+                x:Name="AddParent"
+                />
+    </VerticalStackLayout>
+</ContentPage>

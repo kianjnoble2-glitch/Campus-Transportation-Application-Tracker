@@ -1,0 +1,484 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:buttons="clr-namespace:Syncfusion.Maui.Buttons;assembly=Syncfusion.Maui.Buttons"
+             xmlns:sfavatar="clr-namespace:Syncfusion.Maui.Core;assembly=Syncfusion.Maui.Core"
+             xmlns:sliders="clr-namespace:Syncfusion.Maui.Sliders;assembly=Syncfusion.Maui.Sliders"
+             xmlns:radialmenu="clr-namespace:Syncfusion.Maui.RadialMenu;assembly=Syncfusion.Maui.RadialMenu"
+             x:Class="AdminApp.AddUsersPage"
+             BackgroundColor="#93c2ec">
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IsVisible="False"
+                            IsEnabled="False" />
+    </Shell.BackButtonBehavior>
+
+    <Grid>
+        <BoxView BackgroundColor="#FFFFFF"
+                 Margin="100,40,100,100"
+                 CornerRadius="20"
+                 Opacity="0.3">
+        </BoxView>
+        <BoxView BackgroundColor="#FFFFFF"
+                 Margin="130,0,130,100"
+                 CornerRadius="20"
+                 Opacity="0.2">
+        </BoxView>
+        <Border BackgroundColor="#0e79d7"
+                Stroke="#0e79d7"
+                Margin="75,75,75,75"
+                StrokeShape="RoundRectangle 20,20,20,20">
+            <Grid ColumnDefinitions=".8*, .2*">
+                <HorizontalStackLayout VerticalOptions="Start"
+                                       Margin="75,10,0,0"
+                                       Spacing="10">
+                    <Label Text="Add User"
+                           VerticalOptions="Center"
+                           FontSize="Header" />
+                    <Image Source="userprofile.png"
+                           HeightRequest="50" />
+                </HorizontalStackLayout>
+                <HorizontalStackLayout Grid.Column="1"
+                                       HorizontalOptions="End"
+                                       Margin="0,20,20,0"
+                                       VerticalOptions="Start">
+                    <!--<buttons:SfButton Text=""
+                                      Clicked="buttonUserRoleGroup_Clicked"
+                                      x:Name="UserRoleGroup"
+                                      ImageSource="resetuser.png"
+                                      ShowIcon="True"
+                                      ImageAlignment="Default"
+                                      ImageSize="50"
+                                      WidthRequest="50"
+                                      HeightRequest="50"
+                                      CornerRadius="80"
+                                      Background="Transparent" />-->
+                    <buttons:SfButton Text=""
+                                      Clicked="ClearParent_Clicked"
+                                      x:Name="ClearParent"
+                                      ImageSource="cancel.png"
+                                      ShowIcon="True"
+                                      ImageAlignment="Default"
+                                      ImageSize="50"
+                                      WidthRequest="50"
+                                      HeightRequest="50"
+                                      CornerRadius="80"
+                                      Background="Transparent" />
+                    <buttons:SfButton Text=""
+                                      Clicked="OnAddParent"
+                                      x:Name="AddParent"
+                                      ImageSource="accept.png"
+                                      ShowIcon="True"
+                                      ImageAlignment="Default"
+                                      ImageSize="50"
+                                      WidthRequest="50"
+                                      HeightRequest="50"
+                                      CornerRadius="80"
+                                      Background="Transparent" />
+                    
+
+                </HorizontalStackLayout>
+            </Grid>
+        </Border>
+        <Border BackgroundColor="#f7f8fd"
+                Stroke="#f7f8fd"
+                Margin="135,165,75,100"
+                StrokeShape="RoundRectangle 20,0,20,0">
+            <Grid ColumnDefinitions=".6*,.4*">
+                <BoxView Margin="50,50,50,45"
+                         CornerRadius="15,0,15,0"
+                         Opacity=".1">
+                </BoxView>
+                <ScrollView Grid.Column="0"
+                            Grid.Row="1"
+                            Padding="50"
+                            VerticalOptions="FillAndExpand">
+                    <Grid ColumnDefinitions=".5*,.5*"
+                          RowDefinitions=".1*,.1*,.1*,.1*,.1*,.1*,.4*"
+                          x:Name="ParentStackLayout"
+                          IsVisible="False">
+                        <!--SELECT NAME-->
+                        <Border Grid.Column="0"
+                                Grid.Row="0"
+                                Stroke="Transparent"
+                                Background="Transparent">
+                            <Label Text="Name: "
+                                   TextColor="DarkGray"
+                                   FontAttributes="Bold"
+                                   VerticalOptions="Center"
+                                   Margin="20,0,0,0" />
+                        </Border>
+                        <Border Grid.Column="1"
+                                Grid.Row="0"
+                                Stroke="Transparent"
+                                Background="Transparent">
+                            <Entry Placeholder="Enter your name here..."
+                                   PlaceholderColor="DarkGray"
+                                   TextColor="Black"
+                                   Text="{Binding Name}"
+                                   x:Name="ParentName"
+                                   TextChanged="ParentName_TextChanged" />
+                        </Border>
+                        <!--SELECT CHILD SUPERVISORY ROLE-->
+                        <Border Grid.Column="0"
+                                Grid.Row="1"
+                                Stroke="#f7f8fd"
+                                Background="#f7f8fd">
+                            <Label Text="Role: "
+                                   TextColor="DarkGray"
+                                   FontAttributes="Bold"
+                                   VerticalOptions="Center"
+                                   Margin="20,0,0,0"
+                                   x:Name="LabelRole"/>
+                        </Border>
+                        <Border Grid.Column="1"
+                                Grid.Row="1"
+                                Stroke="#f7f8fd"
+                                Background="#f7f8fd">
+                            <buttons:SfRadioGroup Orientation="Horizontal">
+                                <buttons:SfRadioButton x:Name="Father"
+                                                       Text="Father"
+                                                       IsChecked="{Binding IsFather}" />
+                                <buttons:SfRadioButton x:Name="Mother"
+                                                       Text="Mother"
+                                                       IsChecked="{Binding IsMother}" />
+                                <buttons:SfRadioButton x:Name="Gurdian"
+                                                       Text="Guardian"
+                                                       IsChecked="{Binding IsGurdian}" />
+                            </buttons:SfRadioGroup>
+                        </Border>
+                        <!--SELECT EMAIL-->
+                        <Border Grid.Column="0"
+                                Grid.Row="2"
+                                Stroke="Transparent"
+                                Background="Transparent">
+                            <Label Text="Email: "
+                                   TextColor="DarkGray"
+                                   FontAttributes="Bold"
+                                   VerticalOptions="Center"
+                                   Margin="20,0,0,0" />
+                        </Border>
+                        <Border Grid.Column="1"
+                                Grid.Row="2"
+                                Stroke="Transparent"
+                                Background="Transparent">
+                            <Entry Placeholder="Enter your email here..."
+                                   PlaceholderColor="DarkGray"
+                                   Text="{Binding Email}"
+                                   Keyboard="Email"
+                                   x:Name="ParentEmail"
+                                   TextChanged="OnEmailTextChanged" />
+                        </Border>
+                        <!--SELECT PASSWORD-->
+                        <Border Grid.Column="0"
+                                Grid.Row="3"
+                                Stroke="#f7f8fd"
+                                Background="#f7f8fd">
+                            <Label Text="Password: "
+                                   TextColor="DarkGray"
+                                   FontAttributes="Bold"
+                                   VerticalOptions="Center"
+                                   Margin="20,0,0,0" />
+                        </Border>
+                        <Border Grid.Column="1"
+                                Grid.Row="3"
+                                Stroke="#f7f8fd"
+                                Background="#f7f8fd">
+                            <Entry Placeholder="Enter your **Password** here..."
+                                   PlaceholderColor="DarkGray"
+                                   Text="{Binding Password}"
+                                   IsPassword="True"
+                                   TextColor="Black"
+                                   x:Name="ParentPassword" />
+                        </Border>
+                        <!--SELECT PHONE NUMBER-->
+                        <Border Grid.Column="0"
+                                Grid.Row="4"
+                                Stroke="Transparent"
+                                Background="Transparent">
+                            <Label Text="Phone Number: "
+                                   TextColor="DarkGray"
+                                   FontAttributes="Bold"
+                                   VerticalOptions="Center"
+                                   Margin="20,0,0,0" />
+                        </Border>
+                        <Border Grid.Column="1"
+                                Grid.Row="4"
+                                Stroke="Transparent"
+                                Background="Transparent">
+                            <Entry Placeholder="Enter your phone number here..."
+                                   PlaceholderColor="DarkGray"
+                                   Text="{Binding PhoneNumber}"
+                                   TextColor="Black"
+                                   Keyboard="Telephone"
+                                   x:Name="ParentPhone"
+                                   TextChanged="OnPhoneNumberTextChanged" />
+                        </Border>
+                        <!--CHILDREN PICKER-->
+                        <Border Grid.Column="0"
+                                Grid.Row="5"
+                                Stroke="#f7f8fd"
+                                Background="#f7f8fd">
+                            <Label Text="Children: "
+                                   TextColor="DarkGray"
+                                   FontAttributes="Bold"
+                                   VerticalOptions="Center"
+                                   Margin="20,0,0,0"
+                                   x:Name="LabelChildren"/>
+                        </Border>
+                        <Border Grid.Column="1"
+                                Grid.Row="5"
+                                Stroke="#f7f8fd"
+                                Background="#f7f8fd"
+                                MinimumHeightRequest="40">
+                            <!--SLIDER FOR CHILDREN COUNT ENTRIES ETC-->
+                            <sliders:SfSlider x:Name="childrenCountSlider"
+                                              Value="0"
+                                              Minimum="0"
+                                              Maximum="4"
+                                              Interval="1"
+                                              ShowLabels="True"
+                                              StepSize="1"
+                                              ValueChangeEnd="childrenCountSlider_ValueChangeEnd">
+                                <sliders:SfSlider.TrackStyle>
+                                    <sliders:SliderTrackStyle InactiveFill="#E3F2FD"
+                                                              ActiveFill="#0e79d7" />
+                                </sliders:SfSlider.TrackStyle>
+                                <sliders:SfSlider.ThumbStyle>
+                                    <sliders:SliderThumbStyle Fill="#0e79d7" />
+                                </sliders:SfSlider.ThumbStyle>
+                            </sliders:SfSlider>
+                        </Border>
+                        <!--BUS INFORMATION ENTRIES; HIDDEN FOR PARENTS-->
+                        <!--<Border Grid.Column="0"
+                                Grid.Row="6"
+                                Stroke="Transparent"
+                                Background="Transparent">
+                            <Label Text="Bus: "
+                                   TextColor="DarkGray"
+                                   IsVisible="False"
+                                   FontAttributes="Bold"
+                                   Margin="20,0,0,0"
+                                   x:Name="LabelBuses" />
+                        </Border>-->
+                        <Border Grid.Column="1"
+                                Grid.Row="6"
+                                Stroke="Transparent">
+                            <!--GRID DECLARATIONS FOR DYNAMIC CHILDREN GRID-->
+                            <StackLayout Orientation="Vertical"
+                                         x:Name="ChildrenStackLayout">
+                                <Grid x:Name="ChildrenGrid"
+                                      MinimumHeightRequest="1400"
+                                      RowDefinitions="*,*">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <!--<Label Text="Bus Number: "
+                                           TextColor="DarkGray"/>
+                                    <Entry Grid.Column="1"
+                                           Placeholder="Enter the bus number here..."
+                                           PlaceholderColor="Black"/>-->
+                                </Grid>
+                                
+                            </StackLayout>
+                        </Border>
+                    </Grid>
+                </ScrollView>
+                <BoxView Grid.Column="1"
+                         Margin="30,50,0,45"
+                         Opacity=".1">
+                </BoxView>
+                <Grid Grid.Column="1"
+                      RowDefinitions=".6*,.4*">
+                    <VerticalStackLayout x:Name="PreviewStackLayout"
+                                         Margin="0,30,0,10"
+                                         BackgroundColor="#f7f8fd"
+                                         Spacing="2"
+                                         IsVisible="False">
+                        <sfavatar:SfAvatarView ContentType="Custom"
+                                               ImageSource="alex.png"
+                                               VerticalOptions="Center"
+                                               HorizontalOptions="Center"
+                                               MinimumHeightRequest="160"
+                                               MinimumWidthRequest="160"
+                                               MaximumHeightRequest="320"
+                                               MaximumWidthRequest="320"
+                                               x:Name="avatarProfile"
+                                               BackgroundColor="#f7f8fd"
+                                               Background="#f7f8fd"
+                                               CornerRadius="80"
+                                               Stroke="#0e79d7"
+                                               StrokeThickness="1" />
+                        <Label Text="Name:"
+                               TextColor="Black"
+                               HorizontalOptions="Center"
+                               x:Name="LabelName" />
+                        <Label Text="Email:"
+                               TextColor="Black"
+                               HorizontalOptions="Center"
+                               x:Name="LabelEmail" />
+                    </VerticalStackLayout>
+                    <VerticalStackLayout x:Name="RouteStackLayout"
+                                         HorizontalOptions="Center"
+                                         Grid.Row="1"
+                                         IsVisible="False">
+                        <!--<Label Text="Select Area: "
+                               TextColor="DarkGray"
+                               FontAttributes="Bold" />
+                        <Label Text="Select Route ( Based on Area )"
+                               TextColor="DarkGray"
+                               FontAttributes="Bold" />-->
+                        <Border Stroke="Transparent"
+                                StrokeThickness=".7"
+                                StrokeShape="RoundRectangle 20,20,10,10"
+                                Background="#0e79d7"
+                                MaximumWidthRequest="175">
+                            <Grid>
+                                <HorizontalStackLayout Padding="5"
+                                                       Spacing="10">
+                                    <Label Text="Select your route..."
+                                           TextColor="White"
+                                           x:Name="LabelRoutePicker"
+                                           VerticalOptions="Center" />
+                                    <Picker x:Name="RoutePicker"
+                                            Grid.Column="1"
+                                            TitleColor="DarkGray"
+                                            TextColor="DarkGray"
+                                            SelectedIndexChanged="OnRouteChanged"
+                                            HorizontalOptions="End"
+                                            MaximumWidthRequest="25">
+                                    </Picker>
+                                </HorizontalStackLayout>
+
+                            </Grid>
+                        </Border>
+                        <Label Text="Bus: "
+                               TextColor="DarkGray"
+                               IsVisible="False"
+                               FontAttributes="Bold"
+                               x:Name="LabelBuses" />
+                        <Label Text="Chosen Route:"
+                               x:Name="LabelChosenRoute"
+                               TextColor="DarkGray"
+                               FontAttributes="Bold" />
+                        <Label Text="Chosen Stop:"
+                               x:Name="LabelChosenStop"
+                               TextColor="DarkGray"
+                               FontAttributes="Bold" />
+                    </VerticalStackLayout>
+                    <!--AVATAR IMAGE BUTTON-->
+                    <buttons:SfButton Text=""
+                                      Grid.Column="1"
+                                      x:Name="buttonAvatarImage"
+                                      IsVisible="True"
+                                      Clicked="buttonAvatarImage_Clicked"
+                                      ImageSource="addimage.png"
+                                      ShowIcon="True"
+                                      ImageAlignment="Default"
+                                      ImageSize="30"
+                                      WidthRequest="45"
+                                      HeightRequest="45"
+                                      CornerRadius="80"
+                                      Background="Transparent"
+                                      VerticalOptions="Start"
+                                      HorizontalOptions="End"
+                                      Margin="10,0,0,10" />
+                </Grid>
+                <!--PICKER FOR SELECTING USER ROLE-->
+                <Grid ColumnDefinitions=".3*,.4*,.3*"
+                      RowDefinitions=".1*,.25*,.65*"
+                      x:Name="GridUserRole">
+                    <Border Grid.Row="1"
+                            Grid.Column="1"
+                            Stroke="Transparent"
+                            StrokeThickness=".7"
+                            StrokeShape="RoundRectangle 20,20,10,10"
+                            Background="#0e79d7">
+                        <Grid RowDefinitions=".3*,.4*,.3*">
+                            <BoxView Background="Navy"
+                                     CornerRadius="20,20,0,0"
+                                     Opacity=".2">
+                            </BoxView>
+                            <Label HorizontalOptions="Center"
+                                   VerticalOptions="Center"
+                                   Text="Please Select The Type of User Below..." />
+                            <Picker x:Name="UserRolesPicker"
+                                    Grid.Row="2"
+                                    ItemsSource="{Binding Users}"
+                                    ItemDisplayBinding="{Binding UserRole}"
+                                    SelectedIndexChanged="UserRolesPicker_SelectedIndexChanged" />
+                        </Grid>
+                    </Border>
+                </Grid>
+            </Grid>
+        </Border>
+        <radialmenu:SfRadialMenu x:Name="RadialMenu"
+                                 IsDragEnabled="True"
+                                 CenterButtonText="iBus"
+                                 CenterButtonFontAttributes="Bold"
+                                 CenterButtonTextColor="#1565C0"
+                                 CenterButtonStroke="White"
+                                 CenterButtonStrokeThickness="3"
+                                 CenterButtonBackgroundColor="#93c2ec"
+                                 CenterButtonFontSize="15"
+                                 RimRadius="200"
+                                 RimColor="#1565C0"
+                                 SeparatorThickness="4"
+                                 Point="77,275">
+            <!--<radialmenu:SfRadialMenu.CenterButtonView>
+        <Grid>
+            <StackLayout>
+                <Image Source="bus2.png" />
+            </StackLayout>
+        </Grid>
+    </radialmenu:SfRadialMenu.CenterButtonView>-->
+            <radialmenu:SfRadialMenu.Items>
+                <radialmenu:SfRadialMenuItem Text=""
+                                             FontSize="12"
+                                             ItemHeight="40"
+                                             ItemWidth="40"
+                                             BackgroundColor="White"
+                                             Image="blueback.png"
+                                             ItemTapped="SfRadialMenuItem_BackItemTapped" />
+                <radialmenu:SfRadialMenuItem Text=""
+                                             FontSize="12"
+                                             ItemHeight="40"
+                                             ItemWidth="40"
+                                             BackgroundColor="White"
+                                             ItemTapped="SfRadialMenuItem_ItemTapped"
+                                             Image="bluenotificationoutline.png" />
+                <radialmenu:SfRadialMenuItem Text=""
+                                             FontSize="12"
+                                             ItemHeight="40"
+                                             ItemWidth="40"
+                                             Image="blueroute.png"
+                                             ItemTapped="SfRadialMenuItem_RouteItemTapped"
+                                             BackgroundColor="White" />
+                <radialmenu:SfRadialMenuItem Text=""
+                                             FontSize="12"
+                                             ItemHeight="40"
+                                             ItemWidth="40"
+                                             Image="viewblue.png"
+                                             ItemTapped="SfRadialMenuItem_MainItemTapped"
+                                             BackgroundColor="White" />
+                <radialmenu:SfRadialMenuItem Text=""
+                                             FontSize="12"
+                                             ItemHeight="40"
+                                             ItemWidth="40"
+                                             Image="bluedashboard.png"
+                                             ItemTapped="SfRadialMenuItem_DashboardItemTapped"
+                                             BackgroundColor="White" />
+
+            </radialmenu:SfRadialMenu.Items>
+        </radialmenu:SfRadialMenu>
+        <BoxView Margin="0,0,0,100"
+                 HeightRequest="45"
+                 WidthRequest="800"
+                 VerticalOptions="End"
+                 HorizontalOptions="Center"
+                 CornerRadius="0,0,0,0"
+                 BackgroundColor="#f7f8fd">
+
+        </BoxView>
+    </Grid>
+</ContentPage>

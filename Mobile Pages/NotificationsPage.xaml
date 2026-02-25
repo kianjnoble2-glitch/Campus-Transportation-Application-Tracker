@@ -1,0 +1,116 @@
+﻿<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:popup="clr-namespace:Syncfusion.Maui.Popup;assembly=Syncfusion.Maui.Popup"
+             xmlns:cards="clr-namespace:Syncfusion.Maui.Cards;assembly=Syncfusion.Maui.Cards"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:syncfusion="clr-namespace:Syncfusion.Maui.Core;assembly=Syncfusion.Maui.Core"
+             xmlns:buttons="clr-namespace:Syncfusion.Maui.Buttons;assembly=Syncfusion.Maui.Buttons"
+             x:Class="Kats.NotificationsPage"
+             Shell.FlyoutBehavior="Disabled"
+             Shell.TabBarIsVisible="False"
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="White">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid>
+            <Border StrokeShape="RoundRectangle 0 0 25 25"
+                    StrokeThickness="0"
+                    BackgroundColor="#fadfdf"
+                    VerticalOptions="Start"
+                    HorizontalOptions="Fill"
+                    HeightRequest="35"
+                    Margin="0">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="60" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="60" />
+                    </Grid.ColumnDefinitions>
+
+                    <Grid>
+                        <Label FontFamily="FAS"
+                               FontSize="30"
+                               Text="&#xf057;"
+                               HorizontalOptions="Start">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnExitTapped" />
+                            </Label.GestureRecognizers>
+
+                        </Label>
+                    </Grid>
+
+
+                    <Grid Grid.Column="1">
+
+                        <Label Text="NOTIFICATIONS"
+                               FontSize="25"
+                               FontFamily="FAS"
+                               FontAttributes="Bold"
+                               HorizontalTextAlignment="Center" />
+                    </Grid>
+
+                    <Grid Grid.Column="2">
+                        <Label FontFamily="FAS"
+                               FontSize="30"
+                               Text="&#xf08b;"
+                               HorizontalOptions="End">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="BacktoMain" />
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </Grid>
+
+                </Grid>
+
+            </Border>
+        </Grid>
+
+
+
+        <CollectionView x:Name="NotificationsCollectionView"
+                        Grid.Row="1">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Border StrokeShape="RoundRectangle 25 0 0 25"
+                            Margin="10"
+                            BackgroundColor="#C68884">
+                        <Grid Padding="10"
+                              ColumnSpacing="5"
+                              ColumnDefinitions="*, *, *"
+                              VerticalOptions="Center">
+                            <Image Source="notification.png"
+                                   Grid.Column="0"
+                                   VerticalOptions="Center"
+                                   WidthRequest="40"
+                                   HorizontalOptions="StartAndExpand" />
+                            <Label Text="{Binding Title}"
+                                   Grid.Column="1"
+                                   VerticalOptions="Center"
+                                   TextColor="White"
+                                   HorizontalOptions="CenterAndExpand" />
+                            <Label Text="{Binding TimeStamp}"
+                                   Grid.Column="2"
+                                   FontAttributes="Bold"
+                                   TextColor="Wheat"
+                                   VerticalOptions="Center"
+                                   HorizontalOptions="EndAndExpand" />
+                        </Grid>
+                    </Border>
+
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+
+
+    </Grid>
+
+
+
+
+
+</ContentPage>

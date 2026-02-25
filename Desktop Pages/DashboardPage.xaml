@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:datagrid="clr-namespace:Syncfusion.Maui.DataGrid;assembly=Syncfusion.Maui.DataGrid"
+             xmlns:radialmenu="clr-namespace:Syncfusion.Maui.RadialMenu;assembly=Syncfusion.Maui.RadialMenu"
+             x:Class="AdminApp.DashboardPage"
+             xmlns:local="clr-namespace:AdminApp"
+             BackgroundColor="#93c2ec">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:InverseBooleanConverter x:Key="InverseBooleanConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IsVisible="False"
+                            IsEnabled="False" />
+    </Shell.BackButtonBehavior>
+
+
+
+    <Grid>
+        <BoxView BackgroundColor="#FFFFFF"
+                 Margin="100,40,100,100"
+                 CornerRadius="20"
+                 Opacity="0.3">
+        </BoxView>
+        <BoxView BackgroundColor="#FFFFFF"
+                 Margin="130,0,130,100"
+                 CornerRadius="10"
+                 Opacity="0.2">
+        </BoxView>
+        <Border BackgroundColor="#0e79d7"
+                Stroke="#0e79d7"
+                Margin="75,75,75,75"
+                StrokeShape="RoundRectangle 20,20,20,20">
+        </Border>
+        <Border BackgroundColor="#f7f8fd"
+                Stroke="#f7f8fd"
+                Margin="135,100,75,100"
+                StrokeShape="RoundRectangle 20,0,20,0">
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="350" />
+                </Grid.ColumnDefinitions>
+
+                <Grid Grid.Column="0"
+                      RowSpacing="50">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="150" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <AbsoluteLayout Grid.Row="0"
+                                    Margin="20">
+                        <!-- BoxView covering the entire layout -->
+                        <BoxView BackgroundColor="Navy"
+                                 CornerRadius="10"
+                                 AbsoluteLayout.LayoutBounds="0,0,1,1"
+                                 AbsoluteLayout.LayoutFlags="All" />
+
+                        <!-- HorizontalStackLayout containing frames, positioned at the bottom-center of the BoxView -->
+                        <HorizontalStackLayout Spacing="20"
+                                               AbsoluteLayout.LayoutBounds="0.135,-0.9,1000,150"
+                                               AbsoluteLayout.LayoutFlags="PositionProportional">
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                            </Grid>
+
+                            <!--Total parents-->
+                            <Frame BorderColor="Navy"
+                                   HeightRequest="120"
+                                   BackgroundColor="White"
+                                   Grid.Column="0"
+                                   CornerRadius="10"
+                                   WidthRequest="180">
+                                <Frame.Background>
+                                    <LinearGradientBrush EndPoint="1,0">
+                                        <GradientStop Color="White"
+                                                      Offset="0.1" />
+                                        <GradientStop Color="White"
+                                                      Offset="1.0" />
+                                    </LinearGradientBrush>
+                                </Frame.Background>
+
+
+                                <Grid ColumnDefinitions=".3*,.3*"
+                                      RowDefinitions=".2*,.2*">
+                                    <Label Grid.Column="0"
+                                           Text="TOTAL PARENTS"
+                                           TextColor="Navy"
+                                           FontFamily="FAS"
+                                           FontSize="14" />
+                                    <Label Grid.Column="0"
+                                           Grid.Row="1"
+                                           x:Name="LabelTotalParents"
+                                           Text="{Binding TotalParents}"
+                                           TextColor="Blue"
+                                           FontAttributes="Bold"
+                                           FontFamily="FAS"
+                                           FontSize="Medium"
+                                           VerticalOptions="Center"
+                                           HorizontalOptions="StartAndExpand" />
+                                    <ImageButton Grid.Column="1"
+                                                 Source="parent4.png"
+                                                 x:Name="ParentsImageButton"
+                                                 Background="Transparent"
+                                                 VerticalOptions="Center"
+                                                 HorizontalOptions="Center"
+                                                 BorderColor="Transparent">
+
+                                    </ImageButton>
+                                </Grid>
+                            </Frame>
+
+                            <!--Total Children-->
+                            <Frame BorderColor="Navy"
+                                   BackgroundColor="White"
+                                   Grid.Column="1"
+                                   CornerRadius="10"
+                                   WidthRequest="180">
+                                <Frame.Background>
+                                    <LinearGradientBrush EndPoint="1,0">
+                                        <GradientStop Color="DarkSlateBlue"
+                                                      Offset="0.1" />
+                                        <GradientStop Color="Navy"
+                                                      Offset="1.0" />
+                                    </LinearGradientBrush>
+                                </Frame.Background>
+                                <Grid ColumnDefinitions=".3*,.3*"
+                                      RowDefinitions=".2*,.2*">
+                                    <Label Grid.Column="0"
+                                           Text="TOTAL STUDENTS"
+                                           TextColor="White"
+                                           FontFamily="FAS"
+                                           FontSize="12" />
+                                    <Label Grid.Column="0"
+                                           Grid.Row="1"
+                                           x:Name="LabelTotalChildren"
+                                           Text="{Binding TotalChildren}"
+                                           TextColor="White"
+                                           FontAttributes="Bold"
+                                           FontSize="Medium"
+                                           FontFamily="FAS"
+                                           VerticalOptions="Center"
+                                           HorizontalOptions="StartAndExpand" />
+                                    <ImageButton Grid.Column="1"
+                                                 Source="student2.png"
+                                                 x:Name="ChildImageButton"
+                                                 HeightRequest="120"
+                                                 WidthRequest="60"
+                                                 VerticalOptions="Fill"
+                                                 HorizontalOptions="Fill"
+                                                 Background="Transparent">
+
+                                    </ImageButton>
+                                </Grid>
+                            </Frame>
+
+                            <!-- Routes count-->
+                            <Frame BorderColor="Navy"
+                                   CornerRadius="10"
+                                   WidthRequest="180"
+                                   BackgroundColor="White">
+                                <Frame.Background>
+                                    <LinearGradientBrush EndPoint="1,0">
+                                        <GradientStop Color="DarkSlateBlue"
+                                                      Offset="0.1" />
+                                        <GradientStop Color="Navy"
+                                                      Offset="1.0" />
+                                    </LinearGradientBrush>
+
+                                </Frame.Background>
+                                <Grid ColumnDefinitions=".3*,.3*"
+                                      RowDefinitions=".2*,.2*">
+                                    <Label Grid.Column="0"
+                                           Text="TOTAL ROUTE"
+                                           TextColor="White"
+                                           FontFamily="FAS"
+                                           FontSize="12" />
+                                    <Label Grid.Column="0"
+                                           Grid.Row="1"
+                                           x:Name="LabelTotalRoutes"
+                                           Text="{Binding RoutesCount}"
+                                           TextColor="White"
+                                           FontAttributes="Bold"
+                                           FontSize="Medium"
+                                           FontFamily="FAS"
+                                           VerticalOptions="Center"
+                                           HorizontalOptions="StartAndExpand" />
+                                    <ImageButton Grid.Column="1"
+                                                 Source="routes1.png"
+                                                 HeightRequest="70"
+                                                 WidthRequest="60"
+                                                 VerticalOptions="Start"
+                                                 Background="Transparent" />
+                                </Grid>
+                            </Frame>
+
+                            <!--Drivers Count-->
+                            <Frame BorderColor="Navy"
+                                   BackgroundColor="White"
+                                   Grid.Column="1"
+                                   HeightRequest="120"
+                                   CornerRadius="10"
+                                   WidthRequest="190">
+                                <Frame.Background>
+                                    <LinearGradientBrush EndPoint="1,0">
+                                        <GradientStop Color="White"
+                                                      Offset="0.1" />
+                                        <GradientStop Color="White"
+                                                      Offset="1.0" />
+                                    </LinearGradientBrush>
+                                </Frame.Background>
+
+                                <Grid ColumnDefinitions=".3*,.3*"
+                                      RowDefinitions=".2*,.2*">
+                                    <Label Grid.Column="0"
+                                           Text="TOTAL DRIVERS"
+                                           TextColor="Navy"
+                                           FontFamily="FAS"
+                                           FontSize="14" />
+                                    <Label Grid.Column="0"
+                                           Grid.Row="1"
+                                           x:Name="LabelTotalDrivers"
+                                           Text="{Binding DriversCount}"
+                                           TextColor="blue"
+                                           FontAttributes="Bold"
+                                           FontSize="Medium"
+                                           VerticalOptions="Center"
+                                           HorizontalOptions="StartAndExpand" />
+                                    <ImageButton Grid.Column="1"
+                                                 Source="driver2.jpg"
+                                                 x:Name="DriverImageButton"
+                                                 HeightRequest="70"
+                                                 WidthRequest="90"
+                                                 VerticalOptions="Start"
+                                                 HorizontalOptions="Center"
+                                                 BorderColor="Transparent"
+                                                 Background="Transparent">
+                                    </ImageButton>
+                                </Grid>
+                            </Frame>
+
+                        </HorizontalStackLayout>
+                    </AbsoluteLayout>
+
+                    <!--Row 2 Column 1-->
+
+                    <BoxView BackgroundColor="Blue"
+                             CornerRadius="10"
+                             Grid.Row="1"
+                             Margin="20" />
+                    
+                    <ScrollView Grid.Row="1"
+                                Margin="20">
+                        <datagrid:SfDataGrid ItemsSource="{Binding CheckInHistoryList}"
+                                             AutoGenerateColumnsMode="None"
+                                             ColumnWidthMode="Fill"
+                                             SortingMode="Single"
+                                             HorizontalOptions="Center"
+                                             AllowResizingColumns="True"
+                                             x:Name="checkInDataGrid">
+
+                            <datagrid:SfDataGrid.DefaultStyle>
+                                <datagrid:DataGridStyle RowTextColor="White"
+                                                        HeaderRowFontAttributes="Bold"
+                                                        HeaderRowTextColor="White"/>
+                            </datagrid:SfDataGrid.DefaultStyle>
+                            <datagrid:SfDataGrid.Columns
+                               >
+                                <datagrid:DataGridTextColumn HeaderText="Name"
+                                                             MappingName="Name" />
+                                <datagrid:DataGridTextColumn HeaderText="Grade"
+                                                             MappingName="Grade" />
+                                <datagrid:DataGridTextColumn HeaderText="Checked In"
+                                                             MappingName="CheckedIn" />
+                                <datagrid:DataGridTextColumn HeaderText="Time Stamp"
+                                                             MappingName="TimeStamp" />
+                                <datagrid:DataGridTextColumn HeaderText="Bus Number"
+                                                             MappingName="BusNumber" />
+                            </datagrid:SfDataGrid.Columns>
+                        </datagrid:SfDataGrid>
+                    </ScrollView>
+
+
+                </Grid>
+                <BoxView Grid.Column="1" />
+                    
+                    
+                    
+            </Grid>
+
+        </Border>
+
+        <radialmenu:SfRadialMenu x:Name="RadialMenu"
+                                 IsDragEnabled="True"
+                                 CenterButtonText="iBus"
+                                 CenterButtonFontAttributes="Bold"
+                                 CenterButtonTextColor="#1565C0"
+                                 CenterButtonStroke="White"
+                                 CenterButtonStrokeThickness="3"
+                                 CenterButtonBackgroundColor="#93c2ec"
+                                 CenterButtonFontSize="15"
+                                 RimRadius="200"
+                                 RimColor="#1565C0"
+                                 SeparatorThickness="4"
+                                 Point="77,275">
+            <radialmenu:SfRadialMenu.Items>
+                <radialmenu:SfRadialMenuItem Text=""
+                                             FontSize="12"
+                                             ItemHeight="40"
+                                             ItemWidth="40"
+                                             BackgroundColor="White"
+                                             Image="blueback.png"
+                                             ItemTapped="SfRadialMenuItem_BackItemTapped" />
+                <radialmenu:SfRadialMenuItem Text=""
+                                             FontSize="12"
+                                             ItemHeight="40"
+                                             ItemWidth="40"
+                                             BackgroundColor="White"
+                                             ItemTapped="SfRadialMenuItem_NotificationItemTapped"
+                                             Image="bluenotificationoutline.png" />
+                <radialmenu:SfRadialMenuItem Text=""
+                                             FontSize="12"
+                                             ItemHeight="40"
+                                             ItemWidth="40"
+                                             Image="blueroute.png"
+                                             ItemTapped="SfRadialMenuItem_RouteItemTapped"
+                                             BackgroundColor="White" />
+                <radialmenu:SfRadialMenuItem Text=""
+                                             FontSize="12"
+                                             ItemHeight="40"
+                                             ItemWidth="40"
+                                             Image="viewblue.png"
+                                             ItemTapped="SfRadialMenuItem_MainItemTapped"
+                                             BackgroundColor="White" />
+                <radialmenu:SfRadialMenuItem Text=""
+                                             FontSize="12"
+                                             ItemHeight="40"
+                                             ItemWidth="40"
+                                             Image="bluedashboard.png"
+                                             ItemTapped="SfRadialMenuItem_DashboardItemTapped"
+                                             BackgroundColor="White" />
+
+            </radialmenu:SfRadialMenu.Items>
+        </radialmenu:SfRadialMenu>
+    </Grid>
+</ContentPage>

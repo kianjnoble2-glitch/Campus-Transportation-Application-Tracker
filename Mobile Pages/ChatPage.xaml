@@ -1,0 +1,191 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:syncfusion="clr-namespace:Syncfusion.Maui.Core;assembly=Syncfusion.Maui.Core"
+             xmlns:buttons="clr-namespace:Syncfusion.Maui.Buttons;assembly=Syncfusion.Maui.Buttons"
+             xmlns:tabview="clr-namespace:Syncfusion.Maui.TabView;assembly=Syncfusion.Maui.TabView"
+             x:Class="Kats.ChatPage"
+             xmlns:local="clr-namespace:Kats"
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="White"
+             Shell.TabBarIsVisible="False">
+
+    <ContentPage.Resources>
+        <local:InverseBooleanConverter x:Key="InverseBooleanConverter" />
+    </ContentPage.Resources>
+
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40" />
+            <RowDefinition Height="600" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid>
+            <Border StrokeShape="RoundRectangle 0 0 25 25"
+                    StrokeThickness="0"
+                    BackgroundColor="#fadfdf"
+                    VerticalOptions="Start"
+                    HorizontalOptions="Fill"
+                    HeightRequest="35"
+                    Margin="0">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="60" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="60" />
+                    </Grid.ColumnDefinitions>
+
+                    <Grid>
+                        <Label FontFamily="FAS"
+                               FontSize="30"
+                               Text="&#xf057;"
+                               HorizontalOptions="Start">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnExitTapped" />
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </Grid>
+
+                    <Grid Grid.Column="1">
+                        <Label Text="CHAT-I-BUS"
+                               FontSize="25"
+                               FontFamily="FAS"
+                               FontAttributes="Bold"
+                               HorizontalTextAlignment="Center" />
+                    </Grid>
+
+                    <Grid Grid.Column="2">
+                        <Label FontFamily="FAS"
+                               FontSize="30"
+                               Text="&#xf08b;"
+                               HorizontalOptions="End">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="BacktoMain" />
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </Grid>
+                </Grid>
+            </Border>
+        </Grid>
+
+        <Border Grid.Row="1"
+                StrokeShape="RoundRectangle 25 25 25 25"
+                StrokeThickness="2"
+                Margin="5"
+                BackgroundColor="#fadfdf">
+
+            <tabview:SfTabView>
+                <tabview:SfTabView.Items>
+                    <tabview:SfTabItem Header="DRIVER"
+                                       TextColor="Gray"
+                                       x:Name="StopsTab"
+                                       Background="Transparent">
+                        <Grid  HorizontalOptions="CenterAndExpand">
+                            <CollectionView x:Name="RecentChatsView"
+                                            ItemsSource="{Binding ChatMessages}"
+                                            Margin="10"
+                                            HorizontalOptions="Center">
+
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid Padding="10">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="150" />
+                                                <!-- For received messages -->
+                                                <ColumnDefinition Width="150" />
+                                                <!-- For sent messages -->
+                                            </Grid.ColumnDefinitions>
+
+                                            <!-- Received Message -->
+                                            <Border Grid.Column="0"
+                                                    BackgroundColor="White"
+                                                    StrokeShape="RoundRectangle 25 0 0 35"
+                                                    IsVisible="{Binding IsSentByCurrentUser, Converter={StaticResource InverseBooleanConverter}}"
+                                                    Padding="10"
+                                                    Margin="5">
+                                                <Grid>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="Auto" />
+                                                        <RowDefinition Height="*" />
+                                                    </Grid.RowDefinitions>
+                                                    <Label Grid.Row="1"
+                                                           HorizontalTextAlignment="Center"
+                                                           Text="{Binding MessageText}"
+                                                           FontSize="14"
+                                                           TextColor="#C68884" />
+                                                    <Label Text="{Binding Timestamp, StringFormat='{0:G}'}"
+                                                           FontSize="12"
+                                                           TextColor="#fadfdf"
+                                                           HorizontalOptions="End"
+                                                           VerticalOptions="Center" />
+                                                </Grid>
+                                            </Border>
+
+                                            <!-- Sent Message -->
+                                            <Border Grid.Column="1"
+                                                    StrokeShape="RoundRectangle 25 36 35 0"
+                                                    Padding="10"
+                                                    BackgroundColor="#C68884"
+                                                    IsVisible="{Binding IsSentByCurrentUser}">
+                                                <Grid>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="Auto" />
+                                                        <RowDefinition Height="*" />
+                                                    </Grid.RowDefinitions>
+                                                    <Label Grid.Row="1"
+                                                           Text="{Binding MessageText}"
+                                                           FontSize="14"
+                                                           TextColor="#fadfdf" />
+                                                    <Label Text="{Binding Timestamp, StringFormat='{0:G}'}"
+                                                           FontSize="12"
+                                                           TextColor="White"
+                                                           HorizontalOptions="End"
+                                                           VerticalOptions="Center" />
+                                                </Grid>
+                                            </Border>
+                                        </Grid>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+
+
+                        </Grid>
+                    </tabview:SfTabItem>
+
+                    <tabview:SfTabItem Header="ADMIN"
+                                       TextColor="#C68884">
+
+                    </tabview:SfTabItem>
+
+                </tabview:SfTabView.Items>
+            </tabview:SfTabView>
+
+        </Border>
+
+        <Border StrokeShape="RoundRectangle 25 25 25 25"
+                StrokeThickness="2"
+                Margin="5"
+                Grid.Row="2"
+                BackgroundColor="#fadfdf">
+            <Grid Padding="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50" />
+                    <RowDefinition Height="50" />
+                </Grid.RowDefinitions>
+                <Entry x:Name="MessageEntry"
+                       Placeholder="Type a message"
+                       TextColor="#C68884"
+                       PlaceholderColor="#C68884" />
+                <Button BackgroundColor="#C68884"
+                        CornerRadius="20"
+                        Grid.Row="1"
+                        Text="Send"
+                        Clicked="OnSendMessageClicked" />
+            </Grid>
+        </Border>
+
+
+    </Grid>
+</ContentPage>

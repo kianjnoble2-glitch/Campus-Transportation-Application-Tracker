@@ -1,0 +1,482 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:buttons="clr-namespace:Syncfusion.Maui.Buttons;assembly=Syncfusion.Maui.Buttons"
+             xmlns:syncfusion="clr-namespace:Syncfusion.Maui.Core;assembly=Syncfusion.Maui.Core"
+             xmlns:sliders="clr-namespace:Syncfusion.Maui.Sliders;assembly=Syncfusion.Maui.Sliders"
+             xmlns:radialmenu="clr-namespace:Syncfusion.Maui.RadialMenu;assembly=Syncfusion.Maui.RadialMenu"
+             xmlns:tabView="clr-namespace:Syncfusion.Maui.TabView;assembly=Syncfusion.Maui.TabView"
+             xmlns:editors="clr-namespace:Syncfusion.Maui.Inputs;assembly=Syncfusion.Maui.Inputs"
+             xmlns:progressBar="clr-namespace:Syncfusion.Maui.ProgressBar;assembly=Syncfusion.Maui.ProgressBar"
+             xmlns:expander="clr-namespace:Syncfusion.Maui.Expander;assembly=Syncfusion.Maui.Expander"
+             x:Class="AdminApp.AddRoutesPage"
+             BackgroundColor="#93c2ec">
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IsVisible="False"
+                            IsEnabled="False" />
+    </Shell.BackButtonBehavior>
+    <Grid>
+        <BoxView BackgroundColor="#FFFFFF"
+                 Margin="100,40,100,100"
+                 CornerRadius="20"
+                 Opacity="0.3">
+        </BoxView>
+        <BoxView BackgroundColor="#FFFFFF"
+                 Margin="130,0,130,100"
+                 CornerRadius="20"
+                 Opacity="0.2">
+
+        </BoxView>
+        <Border BackgroundColor="#0e79d7"
+                Stroke="#0e79d7"
+                Margin="75,75,75,75"
+                StrokeShape="RoundRectangle 20,20,20,20">
+            <Grid ColumnDefinitions=".8*, .2*">
+                <HorizontalStackLayout VerticalOptions="Start"
+                                       Margin="75,10,0,0"
+                                       Spacing="10">
+                    <Label Text="Route Management"
+                           VerticalOptions="Center"
+                           FontSize="Header" />
+                    <Image Source="addroute2.png"
+                           HeightRequest="50" />
+                </HorizontalStackLayout>
+                <HorizontalStackLayout Grid.Column="1"
+                                       HorizontalOptions="End"
+                                       Margin="0,20,20,0"
+                                       VerticalOptions="Start"
+                                       Spacing="5">
+                    <buttons:SfButton Text=""
+                                      x:Name="CancelRoute"
+                                      Clicked="CancelRoute_Clicked"
+                                      ImageSource="whitecancel.png"
+                                      ShowIcon="True"
+                                      ImageAlignment="Default"
+                                      ImageSize="45"
+                                      WidthRequest="50"
+                                      HeightRequest="50"
+                                      CornerRadius="80"
+                                      Background="#1E88E5"
+                                      IsEnabled="True" />
+                    <buttons:SfButton Text=""
+                                      x:Name="AddRoute"
+                                      Clicked="AddRoute_Clicked"
+                                      ImageSource="addroute.png"
+                                      ShowIcon="True"
+                                      ImageAlignment="Default"
+                                      ImageSize="40"
+                                      WidthRequest="50"
+                                      HeightRequest="50"
+                                      CornerRadius="80"
+                                      Background="#1E88E5"
+                                      IsEnabled="True" />
+                </HorizontalStackLayout>
+            </Grid>
+        </Border>
+        <Border BackgroundColor="#f7f8fd"
+                Stroke="#f7f8fd"
+                Margin="135,165,75,100"
+                StrokeShape="RoundRectangle 20,0,20,0">
+            <Grid ColumnDefinitions=".55*,.45*"
+                  BackgroundColor="#E0E0E0">
+                <Grid Grid.Column="0"
+                      RowDefinitions=".32*, .68*">
+                    <Border Background="#F5F5F5"
+                            Stroke="#F5F5F5"
+                            StrokeShape="RoundRectangle 0,0,0,40"
+                            VerticalOptions="Start"
+                            Margin="0,0,75,0"
+                            MaximumHeightRequest="300">
+                        <Grid ColumnDefinitions=".1*,.8*,.1*"
+                              RowDefinitions=".1*,.8*,.1*">
+                            <syncfusion:SfTextInputLayout ContainerType="Outlined"
+                                                          ContainerBackground="#F5F5F5"
+                                                          OutlineCornerRadius="60"
+                                                          TrailingViewPosition="Inside"
+                                                          HelperText="Enter the location name of the stop. Using more detail will increase likelihood of success."
+                                                          Hint="Location Name"
+                                                          IsHintAlwaysFloated="True"
+                                                          MaximumHeightRequest="150"
+                                                          Margin="0,15,0,-10"
+                                                          Grid.Column="1"
+                                                          Grid.Row="1"
+                                                          x:Name="SearchLayout">
+                                <Entry Background="#F5F5F5"
+                                       Placeholder="Enter your text here..."
+                                       TextColor="Black"
+                                       PlaceholderColor="DarkGray"
+                                       VerticalOptions="Center"
+                                       x:Name="SearchEntry"
+                                       TextChanged="SearchEntry_TextChanged" />
+                                <syncfusion:SfTextInputLayout.HintLabelStyle>
+                                    <syncfusion:LabelStyle FontSize="16"
+                                                           FontAttributes="Bold"
+                                                           TextColor="#0e79d7" />
+                                </syncfusion:SfTextInputLayout.HintLabelStyle>
+                                <syncfusion:SfTextInputLayout.HelperLabelStyle>
+                                    <syncfusion:LabelStyle FontSize="9"
+                                                           FontAttributes="Bold"
+                                                           TextColor="#0e79d7" />
+                                </syncfusion:SfTextInputLayout.HelperLabelStyle>
+                                <syncfusion:SfTextInputLayout.TrailingView>
+                                    <Label Text="&#x1F50D;" />
+                                </syncfusion:SfTextInputLayout.TrailingView>
+                            </syncfusion:SfTextInputLayout>
+                        </Grid>
+                    </Border>
+                    <Grid Grid.Row="1"
+                          VerticalOptions="Start">
+                        <Border Grid.Row="1"
+                                Background="White"
+                                Margin="25,0,25,0"
+                                Stroke="White"
+                                StrokeThickness="5"
+                                StrokeShape="RoundRectangle 40,40,0,0"
+                                VerticalOptions="Start">
+                            <Grid>
+                                <Image Aspect="Fill"
+                                       VerticalOptions="Start"
+                                       Source="metromap.png"
+                                       x:Name="staticMapImage">
+                                </Image>
+                                <Grid
+                                    ColumnDefinitions=".07*,.95*"
+                                    RowDefinitions=".15*,.85*">
+                                    <!--<expander:SfExpander
+                                        BackgroundColor="White"
+                                        HeaderIconPosition="Start"
+                                        >
+                                        <expander:SfExpander.Header>
+                                            <Grid
+                                                BackgroundColor="White">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="48" />
+                                                </Grid.RowDefinitions>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="35" />
+                                                    <ColumnDefinition Width="*" />
+                                                </Grid.ColumnDefinitions>
+                                            </Grid>
+                                        </expander:SfExpander.Header>
+                                    </expander:SfExpander>-->
+                                </Grid>
+                            </Grid>
+                        </Border>
+                        <syncfusion:SfBusyIndicator x:Name="busyIndicator"
+                                                    IsRunning="False"
+                                                    IndicatorColor="DarkGray"
+                                                    AnimationType="Cupertino"
+                                                    Title="Searching..."
+                                                    TextColor="Black"
+                                                    FontAttributes="Bold" />
+                    </Grid>
+                </Grid>
+                <Grid Grid.Column="1"
+                      Margin="40,65,0,30">
+                    <Border Background="White"
+                            MinimumHeightRequest="250"
+                            Stroke="White"
+                            StrokeThickness="3"
+                            StrokeShape="RoundRectangle 40,0,40,0">
+                        <Grid RowDefinitions=".85*,.1*,.05*">
+                            <ScrollView
+                                VerticalScrollBarVisibility="Never"
+                                HorizontalScrollBarVisibility="Never">
+                                <StackLayout>
+                                    <expander:SfExpander
+                                        x:Name="expanderPreview">
+                                        <expander:SfExpander.Header>
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="48" />
+                                                </Grid.RowDefinitions>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="35" />
+                                                    <ColumnDefinition Width="*" />
+                                                </Grid.ColumnDefinitions>
+                                                <Label Text="&#8226;"
+                                                       TextColor="Black"
+                                                       FontSize="24"
+                                                       Margin="14,2,2,2"
+                                                       VerticalOptions="Center"
+                                                       VerticalTextAlignment="Center" />
+                                                <Label CharacterSpacing="0.25"
+                                                       FontAttributes="Bold"
+                                                       Text="Route Preview"
+                                                       TextColor="#0e79d7"
+                                                       FontSize="14"
+                                                       Grid.Column="1"
+                                                       VerticalOptions="CenterAndExpand" />
+                                            </Grid>
+                                        </expander:SfExpander.Header>
+                                        <expander:SfExpander.Content>
+                                            <Grid Padding="18,8,0,18">
+                                                <VerticalStackLayout>
+                                                    <CollectionView x:Name="collectionViewPreview"
+                                                                    ItemSizingStrategy="MeasureAllItems"
+                                                                    Margin="0,0,20,0">
+                                                        <CollectionView.ItemsLayout>
+                                                            <LinearItemsLayout Orientation="Vertical"
+                                                                               ItemSpacing="7" />
+                                                        </CollectionView.ItemsLayout>
+                                                        <CollectionView.ItemTemplate>
+                                                            <DataTemplate>
+                                                                <Border BackgroundColor="#F5F5F5"
+                                                                        Stroke="Transparent"
+                                                                        MinimumHeightRequest="100">
+                                                                    <Grid ColumnDefinitions=".7*,.3*">
+                                                                        <VerticalStackLayout Spacing="2"
+                                                                                             Margin="10,0,0,0"
+                                                                                             HorizontalOptions="Start">
+                                                                            <Label Text="{Binding stopnumber}"
+                                                                                   TextColor="Black"
+                                                                                   CharacterSpacing=".25"
+                                                                                   FontSize="20"
+                                                                                   FontAttributes="Bold"
+                                                                                   VerticalOptions="Center"
+                                                                                   HorizontalOptions="Start" />
+                                                                            <Label Text="{Binding Area}"
+                                                                                   TextColor="DarkGray"
+                                                                                   FontSize="12"
+                                                                                   FontAttributes="Bold"
+                                                                                   VerticalOptions="Center"
+                                                                                   HorizontalOptions="Start" />
+                                                                        </VerticalStackLayout>
+                                                                        <Grid Grid.Column="1"
+                                                                              RowDefinitions=".4*,.3*,.3*">
+                                                                            <Path HorizontalOptions="End"
+                                                                                  Grid.Column="1"
+                                                                                  VerticalOptions="Start"
+                                                                                  Data="M 0,0 L 36,0 36,36Z"
+                                                                                  Fill="#0e79d7"
+                                                                                  Stroke="Gray" />
+                                                                            <Image Source="{Binding stopimage}"
+                                                                                   HorizontalOptions="End"
+                                                                                   Grid.Row="1"
+                                                                                   HeightRequest="30" />
+
+                                                                            <Label Text="{Binding coordinates}"
+                                                                                   TextColor="DarkGray"
+                                                                                   FontSize="9"
+                                                                                   FontAttributes="Bold"
+                                                                                   Grid.Row="2"
+                                                                                   VerticalOptions="End"
+                                                                                   HorizontalOptions="End" />
+                                                                        </Grid>
+                                                                    </Grid>
+                                                                </Border>
+                                                            </DataTemplate>
+                                                        </CollectionView.ItemTemplate>
+                                                    </CollectionView>
+                                                </VerticalStackLayout>
+                                            </Grid>
+                                        </expander:SfExpander.Content>
+                                    </expander:SfExpander>
+                                    <!--SECOND EXPANDER AND COLLECTION VIEWS-->
+                                    <expander:SfExpander>
+                                        <expander:SfExpander.Header>
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="48" />
+                                                </Grid.RowDefinitions>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="35" />
+                                                    <ColumnDefinition Width="*" />
+                                                </Grid.ColumnDefinitions>
+                                                <Label Text="&#8226;"
+                                                       TextColor="Black"
+                                                       FontSize="24"
+                                                       Margin="14,2,2,2"
+                                                       VerticalOptions="Center"
+                                                       VerticalTextAlignment="Center" />
+                                                <Label CharacterSpacing="0.25"
+                                                       FontAttributes="Bold"
+                                                       Text="All Routes"
+                                                       TextColor="#0e79d7"
+                                                       FontSize="14"
+                                                       Grid.Column="1"
+                                                       VerticalOptions="CenterAndExpand" />
+                                            </Grid>
+                                        </expander:SfExpander.Header>
+                                        <expander:SfExpander.Content>
+                                            <Grid Padding="18,8,0,18">
+                                                <VerticalStackLayout>
+                                                    <CollectionView x:Name="collectionViewAllRoutes"
+                                                                    SelectionMode="Single"
+                                                                    SelectionChanged="collectionViewAllRoutes_SelectionChanged"
+                                                                    ItemSizingStrategy="MeasureAllItems"
+                                                                    Margin="0,0,20,0">
+                                                        <CollectionView.ItemsLayout>
+                                                            <LinearItemsLayout Orientation="Vertical"
+                                                                               ItemSpacing="7" />
+                                                        </CollectionView.ItemsLayout>
+                                                        <CollectionView.ItemTemplate>
+                                                            <DataTemplate>
+                                                                <Border BackgroundColor="#F5F5F5"
+                                                                        Stroke="Transparent"
+                                                                        MinimumHeightRequest="100">
+                                                                    <Grid ColumnDefinitions=".7*,.3*">
+                                                                        <VerticalStackLayout Spacing="2"
+                                                                                             Margin="10,0,0,0"
+                                                                                             HorizontalOptions="Start">
+                                                                            <Label Text="{Binding Key}"
+                                                                                   TextColor="Black"
+                                                                                   CharacterSpacing=".25"
+                                                                                   FontSize="20"
+                                                                                   FontAttributes="Bold"
+                                                                                   VerticalOptions="Center"
+                                                                                   HorizontalOptions="Start" />
+                                                                            <Label Text="{Binding areas}"
+                                                                                   TextColor="DarkGray"
+                                                                                   FontSize="12"
+                                                                                   FontAttributes="Bold"
+                                                                                   VerticalOptions="Center"
+                                                                                   HorizontalOptions="Start" />
+                                                                        </VerticalStackLayout>
+                                                                        <Grid Grid.Column="1"
+                                                                              RowDefinitions=".4*,.3*,.3*">
+                                                                            <Path HorizontalOptions="End"
+                                                                                  Grid.Column="1"
+                                                                                  VerticalOptions="Start"
+                                                                                  Data="M 0,0 L 36,0 36,36Z"
+                                                                                  Fill="#E53935"
+                                                                                  Stroke="Gray" />
+                                                                            <Image Source="{Binding routeimage}"
+                                                                                   HorizontalOptions="End"
+                                                                                   Grid.Row="1"
+                                                                                   HeightRequest="35" />
+
+                                                                            <!--<Label Text="{Binding coordinates}"
+                                                                                   TextColor="DarkGray"
+                                                                                   FontSize="9"
+                                                                                   FontAttributes="Bold"
+                                                                                   Grid.Row="2"
+                                                                                   VerticalOptions="End"
+                                                                                   HorizontalOptions="End" />-->
+                                                                        </Grid>
+                                                                    </Grid>
+                                                                    <VisualStateManager.VisualStateGroups>
+                                                                        <VisualStateGroup x:Name="CommonStates">
+                                                                            <VisualState x:Name="Normal">
+                                                                                <VisualState.Setters>
+                                                                                    <Setter Property="Background"
+                                                                                            Value="#F5F5F5" />
+                                                                                </VisualState.Setters>
+                                                                            </VisualState>
+                                                                            <VisualState x:Name="PointerOver">
+                                                                                <VisualState.Setters>
+                                                                                    <Setter Property="Stroke"
+                                                                                            Value="#F5F5F5" />
+                                                                                    <Setter Property="Background"
+                                                                                            Value="#E0E0E0" />
+                                                                                </VisualState.Setters>
+                                                                            </VisualState>
+                                                                        </VisualStateGroup>
+                                                                    </VisualStateManager.VisualStateGroups>
+                                                                </Border>
+                                                            </DataTemplate>
+                                                        </CollectionView.ItemTemplate>
+                                                    </CollectionView>
+                                                </VerticalStackLayout>
+                                            </Grid>
+                                        </expander:SfExpander.Content>
+                                    </expander:SfExpander>
+                                </StackLayout>
+                            </ScrollView>
+                            <Grid Grid.Row="2"
+                                  ColumnDefinitions=".15*,.7*,.15*">
+                                <progressBar:SfLinearProgressBar Grid.Column="1"
+                                                                 Grid.Row="2"
+                                                                 Progress="75"
+                                                                 SegmentCount="16"
+                                                                 TrackFill="#B2EBF2"
+                                                                 ProgressFill="#0e79d7"
+                                                                 VerticalOptions="Center"
+                                                                 x:Name="stopsProgressBar" />
+                            </Grid>
+                            <Grid Grid.Row="1"
+                                  Grid.RowSpan="2"
+                                  ColumnDefinitions=".15*,.7*,.15*">
+                                <Label Text="12/"
+                                       TextColor="Black"
+                                       FontSize="19"
+                                       FontAttributes="Bold"
+                                       Grid.Column="0"
+                                       VerticalOptions="Center"
+                                       HorizontalOptions="Center"
+                                       x:Name="labelCurrentStop" />
+                                <Label Text="/16"
+                                       TextColor="Black"
+                                       FontSize="19"
+                                       FontAttributes="Bold"
+                                       Grid.Column="2"
+                                       VerticalOptions="Center"
+                                       HorizontalOptions="Center"
+                                       x:Name="labelTotalStops" />
+                            </Grid>
+                        </Grid>
+                    </Border>
+                </Grid>
+            </Grid>
+        </Border>
+        <radialmenu:SfRadialMenu x:Name="RadialMenu"
+                                 IsDragEnabled="True"
+                                 CenterButtonText="iBus"
+                                 CenterButtonFontAttributes="Bold"
+                                 CenterButtonTextColor="#1565C0"
+                                 CenterButtonStroke="White"
+                                 CenterButtonStrokeThickness="3"
+                                 CenterButtonBackgroundColor="#93c2ec"
+                                 CenterButtonFontSize="15"
+                                 RimRadius="200"
+                                 RimColor="#1565C0"
+                                 SeparatorThickness="4"
+                                 Point="77,275">
+            <!--<radialmenu:SfRadialMenu.CenterButtonView>
+    <Grid>
+        <StackLayout>
+            <Image Source="bus2.png" />
+        </StackLayout>
+    </Grid>
+</radialmenu:SfRadialMenu.CenterButtonView>-->
+            <radialmenu:SfRadialMenu.Items>
+                <radialmenu:SfRadialMenuItem Text=""
+                                             FontSize="12"
+                                             ItemHeight="40"
+                                             ItemWidth="40"
+                                             BackgroundColor="White"
+                                             Image="blueback.png"
+                                             ItemTapped="SfRadialMenuItem_BackItemTapped" />
+                <radialmenu:SfRadialMenuItem Text=""
+                                             FontSize="12"
+                                             ItemHeight="40"
+                                             ItemWidth="40"
+                                             BackgroundColor="White"
+                                             ItemTapped="SfRadialMenuItem_ItemTapped"
+                                             Image="bluenotificationoutline.png" />
+                <radialmenu:SfRadialMenuItem Text=""
+                                             FontSize="12"
+                                             ItemHeight="40"
+                                             ItemWidth="40"
+                                             Image="blueroute.png"
+                                             ItemTapped="SfRadialMenuItem_RouteItemTapped"
+                                             BackgroundColor="White" />
+                <radialmenu:SfRadialMenuItem Text=""
+                                             FontSize="12"
+                                             ItemHeight="40"
+                                             ItemWidth="40"
+                                             Image="viewblue.png"
+                                             ItemTapped="SfRadialMenuItem_MainItemTapped"
+                                             BackgroundColor="White" />
+                <radialmenu:SfRadialMenuItem Text=""
+                                             FontSize="12"
+                                             ItemHeight="40"
+                                             ItemWidth="40"
+                                             Image="bluedashboard.png"
+                                             ItemTapped="SfRadialMenuItem_DashboardItemTapped"
+                                             BackgroundColor="White" />
+
+            </radialmenu:SfRadialMenu.Items>
+        </radialmenu:SfRadialMenu>
+    </Grid>
+</ContentPage>

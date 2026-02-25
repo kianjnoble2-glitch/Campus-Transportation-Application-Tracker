@@ -1,0 +1,380 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:barcode="clr-namespace:Syncfusion.Maui.Barcode;assembly=Syncfusion.Maui.Barcode"
+             xmlns:map="clr-namespace:Syncfusion.Maui.Maps;assembly=Syncfusion.Maui.Maps"
+             xmlns:popup="clr-namespace:Syncfusion.Maui.Popup;assembly=Syncfusion.Maui.Popup"
+             xmlns:cards="clr-namespace:Syncfusion.Maui.Cards;assembly=Syncfusion.Maui.Cards"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:syncfusion="clr-namespace:Syncfusion.Maui.Core;assembly=Syncfusion.Maui.Core"
+             xmlns:tabview="clr-namespace:Syncfusion.Maui.TabView;assembly=Syncfusion.Maui.TabView"
+             xmlns:maps="clr-namespace:Microsoft.Maui.Controls.Maps;assembly=Microsoft.Maui.Controls.Maps"
+             xmlns:buttons="clr-namespace:Syncfusion.Maui.Buttons;assembly=Syncfusion.Maui.Buttons"
+             x:Class="Kats.DriverMainPage"
+             Shell.FlyoutBehavior="Disabled"
+             Shell.TabBarIsVisible="False"
+             Shell.NavBarIsVisible="False">
+
+    <Grid>
+        <Grid.RowDefinitions>
+
+            <RowDefinition Height="350" />
+            <RowDefinition Height="450" />
+        </Grid.RowDefinitions>
+
+
+        <Grid>
+
+
+            <WebView x:Name="MapWebView"
+                     HeightRequest="850"
+                     Grid.Row="0"
+                     HorizontalOptions="FillAndExpand"
+                     VerticalOptions="FillAndExpand" />
+
+            <Border StrokeShape="RoundRectangle 0 0 25 25"
+                    StrokeThickness="0"
+                    BackgroundColor="#fadfdf"
+                    VerticalOptions="Start"
+                    HorizontalOptions="Fill"
+                    HeightRequest="35"
+                    Margin="0">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="100" />
+                    </Grid.ColumnDefinitions>
+
+                    <Grid>
+                        <Label FontFamily="FAS"
+                               FontSize="30"
+                               Text="&#xf057;"
+                               HorizontalOptions="Start">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnExitTapped" />
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </Grid>
+
+
+                    <Grid Grid.Column="1">
+
+                        <Label Text="I-BUS TRACK"
+                               FontSize="25"
+                               FontFamily="FAS"
+                               FontAttributes="Bold"
+                               HorizontalTextAlignment="Center" />
+                    </Grid>
+
+                    <Grid Grid.Column="2">
+                        <Label FontFamily="FAS"
+                               FontSize="30"
+                               Text="&#xf011;"
+                               HorizontalOptions="End">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnExitTapped" />
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </Grid>
+
+                </Grid>
+
+            </Border>
+
+            <!-- Inner Border that overlaps the map and main border at the bottom -->
+
+        </Grid>
+
+
+        <Grid Grid.Row="1">
+            <AbsoluteLayout HorizontalOptions="FillAndExpand"
+                            VerticalOptions="FillAndExpand">
+                <Border StrokeShape="RoundRectangle 30 30 0 0"
+                        Background="White"
+                        AbsoluteLayout.LayoutBounds="0,0,1,1"
+                        AbsoluteLayout.LayoutFlags="All">
+                    <tabview:SfTabView HeightRequest="450">
+                        <tabview:SfTabView.Items>
+                            <tabview:SfTabItem Header="Stops"
+                                               TextColor="Gray"
+                                               x:Name="StopsTab">
+                                <ScrollView HeightRequest="340"
+                                            HorizontalOptions="FillAndExpand"
+                                            VerticalOptions="FillAndExpand">
+                                    <StackLayout>
+                                        <CollectionView ItemsSource="{Binding Stops}">
+                                            <CollectionView.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="50" />
+                                                            <ColumnDefinition Width="200" />
+                                                            <ColumnDefinition Width="50" />
+                                                            <ColumnDefinition Width="Auto" />
+                                                        </Grid.ColumnDefinitions>
+
+                                                        <StackLayout Orientation="Vertical"
+                                                                     HorizontalOptions="Center"
+                                                                     Grid.Column="0">
+                                                            <BoxView Color="#B2BB22"
+                                                                     WidthRequest="10"
+                                                                     HeightRequest="25"
+                                                                     CornerRadius="5"
+                                                                     HorizontalOptions="Center" />
+                                                            <BoxView Color="#56D737"
+                                                                     WidthRequest="2"
+                                                                     HeightRequest="50"
+                                                                     VerticalOptions="Start" />
+                                                        </StackLayout>
+
+                                                        <StackLayout Grid.Column="1">
+
+                                                            <Label Text="{Binding Key}"
+                                                                   TextColor="Black"
+                                                                   FontFamily="FAS"
+                                                                   FontAttributes="Bold" />
+                                                            <Label Text="{Binding Area}"
+                                                                   TextColor="Black"/>
+                                                        </StackLayout>
+
+                                                        <BoxView Grid.Column="2"
+                                                                 WidthRequest="10" />
+                                                        <Label Grid.Column="3"
+                                                               Text="{Binding Stop1ETA_}"
+                                                               HorizontalOptions="End"
+                                                               FontAttributes="Bold" />
+                                                    </Grid>
+                                                </DataTemplate>
+                                            </CollectionView.ItemTemplate>
+                                        </CollectionView>
+
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+
+                                            <Label Grid.Column="0"
+                                                   HorizontalOptions="End"
+                                                   Text="{Binding Stop1ETA}"
+                                                   FontFamily="OpenSansSemibold"
+                                                   FontAttributes="Bold"
+                                                   Margin="10, 5" />
+                                            <Label Grid.Column="1"
+                                                   HorizontalOptions="Center"
+                                                   Text="{Binding Stop1Distance}"
+                                                   FontFamily="OpenSansRegular"
+                                                   Margin="10, 5" />
+
+                                        </Grid>
+
+
+                                        <!--
+                                     <Label Text="{Binding Stop2ETA}" FontFamily="OpenSansSemibold" FontAttributes="Bold" Margin="10, 5"/>
+                                     <Label Text="{Binding Stop3ETA}" FontFamily="OpenSansSemibold" FontAttributes="Bold" Margin="10, 5"/>
+                                        -->
+
+
+
+                                    </StackLayout>
+                                </ScrollView>
+                            </tabview:SfTabItem>
+
+                            <tabview:SfTabItem Header="History"
+                                               TextColor="Black">
+                                <ScrollView>
+                                    <StackLayout x:Name="CheckInStackLayout">
+                                        <!-- Check-ins will be added here dynamically -->
+                                    </StackLayout>
+                                </ScrollView>
+                            </tabview:SfTabItem>
+                            <tabview:SfTabItem Header="Bus Info"
+                                               TextColor="Gray">
+                                <ScrollView>
+                                    <StackLayout>
+                                        <Label Text="Bus Number"
+                                               FontAttributes="Bold"
+                                               FontSize="20"
+                                               HorizontalTextAlignment="Center" />
+                                        <Label Text="LXB123 GP"
+                                               HorizontalTextAlignment="Center" />
+
+                                        <Image Source="p2.jpg"
+                                               HorizontalOptions="Center"
+                                               VerticalOptions="Center"
+                                               WidthRequest="200"
+                                               HeightRequest="200" />
+
+                                        <Label Text="Driver Name"
+                                               FontAttributes="Bold"
+                                               FontSize="20"
+                                               HorizontalTextAlignment="Center" />
+                                        <Label Text="John Markham"
+                                               HorizontalTextAlignment="Center" />
+                                    </StackLayout>
+                                </ScrollView>
+                            </tabview:SfTabItem>
+                        </tabview:SfTabView.Items>
+                    </tabview:SfTabView>
+                </Border>
+
+
+                <Border  StrokeShape="RoundRectangle 25 25 25 25"
+                         Background="#C68884"
+                         HeightRequest="70"
+                         WidthRequest="350"
+                         AbsoluteLayout.LayoutBounds="0,0.15,1,2"
+                         AbsoluteLayout.LayoutFlags="All"
+                         HorizontalOptions="FillAndExpand"
+                         VerticalOptions="FillAndExpand">
+                    <Grid AbsoluteLayout.LayoutBounds="0,0,1,1"
+                          AbsoluteLayout.LayoutFlags="PositionProportional"
+                          HorizontalOptions="Center"
+                          VerticalOptions="Center">
+                        <!-- Circular Border -->
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="70" />
+                            </Grid.RowDefinitions>
+
+                            <Grid Grid.Row="0"
+                                  ColumnDefinitions="Auto,Auto,*,Auto,Auto"
+                                  RowDefinitions="*,*"
+                                  RowSpacing="3"
+                                  ColumnSpacing="45"
+                                  HorizontalOptions="CenterAndExpand">
+
+                                <Label Grid.Row="1"
+                                       FontSize="8"
+                                       HorizontalOptions="Center"
+                                       Text="Chat"
+                                       TextColor="White">
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="OnChatTapped" />
+                                    </Label.GestureRecognizers>
+
+                                </Label>
+
+                                <Label Grid.Row="1"
+                                       Grid.Column="1"
+                                       FontSize="8"
+                                       HorizontalOptions="Center"
+                                       FlowDirection="LeftToRight"
+                                       HorizontalTextAlignment="Center"
+                                       Text="Notifications"
+                                       TextColor="White">
+
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="OnNotificationsTapped" />
+                                    </Label.GestureRecognizers>
+
+                                </Label>
+
+                                <Label Grid.Row="1"
+                                       Grid.Column="2"
+                                       FontSize="10"
+                                       HorizontalOptions="Center"
+                                       Text="Home"
+                                       TextColor="White">
+
+                                </Label>
+
+
+                                <Label Grid.Row="1"
+                                       Grid.Column="3"
+                                       FontSize="8"
+                                       HorizontalOptions="Center"
+                                       Text="Profile"
+                                       TextColor="White">
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="OnProfileTapped" />
+                                    </Label.GestureRecognizers>
+                                </Label>
+
+
+                                <Label Grid.Row="1"
+                                       Grid.Column="4"
+                                       FontSize="8"
+                                       HorizontalOptions="Center"
+                                       Text="Settings"
+                                       TextColor="White">
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="OnSettingsTapped" />
+                                    </Label.GestureRecognizers>
+
+                                </Label>
+                                <Label FontFamily="FAS"
+                                       FontSize="20"
+                                       HorizontalOptions="Center"
+                                       Text="&#xf075;"
+                                       VerticalOptions="End"
+                                       TextColor="White">
+
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="OnChatTapped" />
+                                    </Label.GestureRecognizers>
+                                </Label>
+
+                                <Label Grid.Column="1"
+                                       FontFamily="FAS"
+                                       FontSize="20"
+                                       VerticalOptions="End"
+                                       HorizontalOptions="Center"
+                                       Text="&#xf0f3;"
+                                       TextColor="White">
+
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="OnNotificationsTapped" />
+                                    </Label.GestureRecognizers>
+
+                                </Label>
+
+                                <Label FontFamily="FAS"
+                                       Grid.Column="2"
+                                       FontSize="20"
+                                       VerticalOptions="End"
+                                       HorizontalOptions="Center"
+                                       Text="&#xf015;"
+                                       TextColor="PeachPuff">
+
+
+                                </Label>
+
+
+                                <Label FontFamily="FAS"
+                                       Grid.Column="3"
+                                       FontSize="20"
+                                       VerticalOptions="End"
+                                       HorizontalOptions="Center"
+                                       Text="&#xf007;"
+                                       TextColor="White">
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="OnProfileTapped" />
+                                    </Label.GestureRecognizers>
+                                </Label>
+
+                                <Label FontFamily="FAS"
+                                       Grid.Column="4"
+                                       FontSize="20"
+                                       VerticalOptions="End"
+                                       HorizontalOptions="Center"
+                                       Text="&#xf085;"
+                                       TextColor="White">
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="OnSettingsTapped" />
+                                    </Label.GestureRecognizers>
+                                </Label>
+
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </Border>
+            </AbsoluteLayout>
+
+
+        </Grid>
+
+
+    </Grid>
+
+
+</ContentPage>
